@@ -18,7 +18,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	service := userService.NewUser()
-	errUserService, _ := service.Create(u)
+	_, errUserService := service.Create(u)
 
 	if errUserService != nil {
 		http.Error(w, errUserService.Error(), 400)

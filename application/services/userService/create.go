@@ -12,19 +12,19 @@ func NewUser() *UserService {
 	return &UserService{}
 }
 
-func (us *UserService) Create(u *user.User) (error, *user.User) {
+func (us *UserService) Create(u *user.User) (*user.User, error) {
 	if !u.EmailPresent() {
-		return errors.New("error to create user, email is empty"), u
+		return u, errors.New("error to create user, email is empty")
 	}
 
 	if !u.PasswordSizeValid(6) {
-		return errors.New("the password must have a minimum of 6 characters"), u
+		return u, errors.New("the password must have a minimum of 6 characters")
 	}
 
 	repository := userRepository.NewUserRepository()
 
 	if repository.ExistsByEmail(u.Email) {
-		return errors.New("the user already exists"), u
+		return u, errors.New("the user already exists")
 	}
 
 	return repository.Create(u)
