@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
@@ -41,10 +40,6 @@ func initDB() {
 }
 
 func getConnection() *mongo.Client {
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	uriConn := os.Getenv("DATABASE_URI")
 	clientOptions := options.Client().ApplyURI(uriConn)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
