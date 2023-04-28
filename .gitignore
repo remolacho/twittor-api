@@ -1,4 +1,6 @@
 /.env
+/.env.develop
+/.env.test
 /.idea/*
 .idea
 .idea/*

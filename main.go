@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
 	"log"
 	"twittor-api/app/api/v1/routers"
 	"twittor-api/infraestructure/db/mongoDB"
+	"twittor-api/infraestructure/environment"
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
+	if err := environment.Load(); err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
