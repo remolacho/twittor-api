@@ -3,7 +3,7 @@ package user
 import (
 	"encoding/json"
 	"net/http"
-	"twittor-api/application/services/userService"
+	"twittor-api/app/services/userService"
 	"twittor-api/domain/models/user"
 )
 
@@ -18,10 +18,10 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	service := userService.NewUser()
-	_, errUserService := service.Create(u)
+	_, errService := service.Create(u)
 
-	if errUserService != nil {
-		http.Error(w, errUserService.Error(), 400)
+	if errService != nil {
+		http.Error(w, errService.Error(), 400)
 		return
 	}
 

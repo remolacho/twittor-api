@@ -2,7 +2,7 @@ package middlewr
 
 import (
 	"net/http"
-	"twittor-api/infraestructure/mongoDB"
+	"twittor-api/infraestructure/db/mongoDB"
 )
 
 func CheckDB(next http.HandlerFunc) http.HandlerFunc {

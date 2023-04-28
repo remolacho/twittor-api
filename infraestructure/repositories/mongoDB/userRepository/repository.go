@@ -3,7 +3,7 @@ package userRepository
 import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"os"
-	"twittor-api/infraestructure/mongoDB"
+	"twittor-api/infraestructure/db/mongoDB"
 )
 
 type UserRepository struct {

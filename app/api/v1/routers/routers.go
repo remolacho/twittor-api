@@ -6,13 +6,12 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"twittor-api/application/api/v1/handlers/users"
-	"twittor-api/application/middlewr"
+	"twittor-api/app/api/v1/handlers/users"
 )
 
 func Handler() {
 	router := mux.NewRouter()
-	router.HandleFunc("/v1/users/sign-up", middlewr.CheckDB(user.SignUp)).Methods("POST")
+	router.HandleFunc("/v1/users/sign-up", user.SignUp).Methods("POST")
 
 	port := os.Getenv("PORT")
 	corsAllowed := cors.AllowAll().Handler(router)

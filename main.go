@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/joho/godotenv"
 	"log"
-	"twittor-api/application/api/v1/routers"
-	"twittor-api/infraestructure/mongoDB"
+	"twittor-api/app/api/v1/routers"
+	"twittor-api/infraestructure/db/mongoDB"
 )
 
 func main() {
