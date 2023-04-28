@@ -3,7 +3,7 @@ package userService
 import (
 	"errors"
 	"twittor-api/domain/models/user"
-	"twittor-api/infraestructure/repositories/userRepository"
+	"twittor-api/infraestructure/repositories/mongoDB/userRepository"
 )
 
 type UserService struct{}
@@ -21,7 +21,7 @@ func (us *UserService) Create(u *user.User) (*user.User, error) {
 		return u, errors.New("the password must have a minimum of 6 characters")
 	}
 
-	repository := userRepository.NewUserRepository()
+	repository := userRepository.New()
 
 	if repository.ExistsByEmail(u.Email) {
 		return u, errors.New("the user already exists")
