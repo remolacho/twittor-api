@@ -3,13 +3,16 @@ package userService
 import (
 	"errors"
 	"twittor-api/domain/models/user"
-	"twittor-api/infraestructure/repositories/factories/repositoryFactoryUser"
 )
 
-type UserService struct{}
+type UserService struct {
+	RepositoryUser user.IUser
+}
 
-func NewUser() *UserService {
-	return &UserService{}
+func NewUser(repository user.IUser) *UserService {
+	return &UserService{
+		repository,
+	}
 }
 
 func (us *UserService) Create(u *user.User) (*user.User, error) {
@@ -21,11 +24,9 @@ func (us *UserService) Create(u *user.User) (*user.User, error) {
 		return u, errors.New("the password must have a minimum of 6 characters")
 	}
 
-	repositoryUser := repositoryFactoryUser.Build()
-
-	if repositoryUser.ExistsByEmail(u.Email) {
+	if us.RepositoryUser.ExistsByEmail(u.Email) {
 		return u, errors.New("the user already exists")
 	}
 
-	return repositoryUser.Create(u)
+	return us.RepositoryUser.Create(u)
 }

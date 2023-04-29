@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"twittor-api/app/services/userService"
 	"twittor-api/domain/models/user"
+	"twittor-api/infraestructure/repositories/factories/repositoryFactoryUser"
 )
 
 // SignUp POST route /v1/users/sign-up
@@ -17,7 +18,8 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	service := userService.NewUser()
+	repositoryUser := repositoryFactoryUser.Build()
+	service := userService.NewUser(repositoryUser)
 	_, errService := service.Create(u)
 
 	if errService != nil {
