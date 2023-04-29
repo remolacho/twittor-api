@@ -14,12 +14,11 @@ func (r *UserRepository) Create(u *user.User) (*user.User, error) {
 
 	var err error
 	u.Password, err = u.EncryptPassword()
+	u.ID = primitive.NewObjectID()
 
 	if err != nil {
 		return u, errors.New("the error to encrypt password " + err.Error())
 	}
-
-	u.ID = primitive.NewObjectID()
 
 	_, errRecord := r.User.InsertOne(ctx, u)
 

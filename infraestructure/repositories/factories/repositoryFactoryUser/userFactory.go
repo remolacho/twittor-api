@@ -11,7 +11,7 @@ func Build(opts ...string) user.IUser {
 		return userMongoRepository.New()
 	}
 
-	if opts[0] == "mock" {
+	if opts[0] == "test" {
 		return userMockRepository.New()
 	}
 

@@ -5,7 +5,7 @@ import (
 )
 
 func (r *UserRepository) ExistsByEmail(email string) bool {
-	if GetUser().Email == email {
+	if RegisterUser().Email == email {
 		return true
 	}
 
@@ -13,5 +13,5 @@ func (r *UserRepository) ExistsByEmail(email string) bool {
 }
 
 func (r *UserRepository) FindByEmail(email string) (*user.User, error) {
-	return GetUser(), nil
+	return RegisterUser(), nil
 }
