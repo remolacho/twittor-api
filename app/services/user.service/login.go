@@ -34,8 +34,8 @@ func (s *UserLoginService) Login(email, password string) (ResponseJwt, bool) {
 		return response, false
 	}
 
-	serviceJwt := jwtService.NewJwt(u)
-	response.Token, err = serviceJwt.Encode()
+	serviceJwt := jwtService.NewJwt()
+	response.Token, err = serviceJwt.Encode(*u)
 
 	if err != nil {
 		return response, false
