@@ -24,16 +24,16 @@ func (r *UserRepository) ExistsByEmail(email string) bool {
 }
 
 func (r *UserRepository) FindByEmail(email string) (*user.User, error) {
-	var record *user.User
+	var record user.User
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	condition := bson.M{"email": email}
-	err := r.User.FindOne(ctx, condition).Decode(record)
+	err := r.User.FindOne(ctx, condition).Decode(&record)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return record, nil
+	return &record, nil
 }

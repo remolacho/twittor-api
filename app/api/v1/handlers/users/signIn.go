@@ -22,12 +22,14 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 
 	repositoryUser := repositoryFactoryUser.Build()
 	service := userService.NewLogin(repositoryUser)
-
-	_, isValid := service.Login(u.Email, u.Password)
+	response, isValid := service.Login(u.Email, u.Password)
 
 	if !isValid {
 		http.Error(w, "Thw email or password is not valid!!!", 403)
 		return
 	}
 
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(response)
 }
