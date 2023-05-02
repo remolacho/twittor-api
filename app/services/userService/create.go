@@ -5,17 +5,17 @@ import (
 	"twittor-api/domain/models/user"
 )
 
-type UserService struct {
+type UserCreateService struct {
 	RepositoryUser user.IUser
 }
 
-func NewUser(repository user.IUser) *UserService {
-	return &UserService{
+func NewUser(repository user.IUser) *UserCreateService {
+	return &UserCreateService{
 		repository,
 	}
 }
 
-func (us *UserService) Create(u *user.User) (*user.User, error) {
+func (us *UserCreateService) Create(u *user.User) (*user.User, error) {
 	if !u.EmailPresent() {
 		return u, errors.New("error to create user, email is empty")
 	}

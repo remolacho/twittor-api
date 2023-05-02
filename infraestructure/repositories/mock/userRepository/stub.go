@@ -33,12 +33,16 @@ func newUser() *user.User {
 }
 
 func registerUser() *user.User {
-	return &user.User{
+	u := &user.User{
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",
 		Password: "123456",
 	}
+
+	password, _ := u.EncryptPassword()
+	u.Password = password
+	return u
 }
 
 func getUserWithOutEmail() *user.User {

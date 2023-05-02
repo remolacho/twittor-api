@@ -9,7 +9,7 @@ import (
 	userMockRepository "twittor-api/infraestructure/repositories/mock/userRepository"
 )
 
-var testCases = []struct {
+var testCasesCreateUser = []struct {
 	name          string
 	input         *user.User
 	errorExpected error
@@ -45,7 +45,7 @@ func TestCreate(t *testing.T) {
 	mockFactory := repositoryFactoryUser.Build("test")
 	service := NewUser(mockFactory)
 
-	for _, tc := range testCases {
+	for _, tc := range testCasesCreateUser {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 

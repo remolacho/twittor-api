@@ -1,11 +1,12 @@
 package userRepository
 
 import (
+	"errors"
 	"twittor-api/domain/models/user"
 )
 
 func (r *UserRepository) ExistsByEmail(email string) bool {
-	if registerUser().Email == email {
+	if StubUser("created").Email == email {
 		return true
 	}
 
@@ -13,5 +14,9 @@ func (r *UserRepository) ExistsByEmail(email string) bool {
 }
 
 func (r *UserRepository) FindByEmail(email string) (*user.User, error) {
-	return registerUser(), nil
+	if !r.ExistsByEmail(email) {
+		return nil, errors.New("user not found")
+	}
+
+	return StubUser("created"), nil
 }

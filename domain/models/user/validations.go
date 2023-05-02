@@ -16,3 +16,10 @@ func (u *User) EncryptPassword() (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword(slicePassword, cost)
 	return string(bytes), err
 }
+
+func (u *User) DecodePassword(password string) error {
+	passwordBytes := []byte(password)
+	passwordDB := []byte(u.Password)
+	err := bcrypt.CompareHashAndPassword(passwordDB, passwordBytes)
+	return err
+}
