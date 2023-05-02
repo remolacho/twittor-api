@@ -1,12 +1,12 @@
-package userService
+package user_service
 
 import (
 	"errors"
 	"reflect"
 	"testing"
 	"twittor-api/domain/models/user"
-	"twittor-api/infraestructure/repositories/factories/repositoryFactoryUser"
-	userMockRepository "twittor-api/infraestructure/repositories/mock/userRepository"
+	"twittor-api/infraestructure/repositories/factories/repository.factory.user"
+	userMockRepository "twittor-api/infraestructure/repositories/mock/user.repository"
 )
 
 var testCasesCreateUser = []struct {
@@ -42,7 +42,7 @@ var testCasesCreateUser = []struct {
 }
 
 func TestCreate(t *testing.T) {
-	mockFactory := repositoryFactoryUser.Build("test")
+	mockFactory := repository_factory_user.Build("test")
 	service := NewUser(mockFactory)
 
 	for _, tc := range testCasesCreateUser {

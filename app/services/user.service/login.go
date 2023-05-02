@@ -1,4 +1,4 @@
-package userService
+package user_service
 
 import (
 	"twittor-api/domain/models/user"

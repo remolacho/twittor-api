@@ -1,9 +1,9 @@
-package repositoryFactoryUser
+package repository_factory_user
 
 import (
 	"twittor-api/domain/models/user"
-	userMockRepository "twittor-api/infraestructure/repositories/mock/userRepository"
-	userMongoRepository "twittor-api/infraestructure/repositories/mongoDB/userRepository"
+	userMockRepository "twittor-api/infraestructure/repositories/mock/user.repository"
+	userMongoRepository "twittor-api/infraestructure/repositories/mongoDB/user.repository"
 )
 
 func Build(opts ...string) user.IUser {

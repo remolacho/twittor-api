@@ -8,24 +8,26 @@ import (
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 )
 
-// SignUp POST route /v1/users/sign-up
-func SignUp(w http.ResponseWriter, r *http.Request) {
+// SignIn POST route /v1/users/sign-in
+func SignIn(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("content-type", "application/json")
+
 	u := user.New()
 	err := json.NewDecoder(r.Body).Decode(&u)
 
 	if err != nil {
-		http.Error(w, "error to create user "+err.Error(), 400)
+		http.Error(w, "error to user login "+err.Error(), 403)
 		return
 	}
 
 	repositoryUser := repositoryFactoryUser.Build()
-	service := userService.NewUser(repositoryUser)
-	_, errService := service.Create(u)
+	service := userService.NewLogin(repositoryUser)
 
-	if errService != nil {
-		http.Error(w, errService.Error(), 400)
+	_, isValid := service.Login(u.Email, u.Password)
+
+	if !isValid {
+		http.Error(w, "Thw email or password is not valid!!!", 403)
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
 }

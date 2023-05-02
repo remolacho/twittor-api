@@ -12,6 +12,7 @@ import (
 func Handler() {
 	router := mux.NewRouter()
 	router.HandleFunc("/v1/users/sign-up", user.SignUp).Methods("POST")
+	router.HandleFunc("/v1/users/sign-in", user.SignIn).Methods("POST")
 
 	port := os.Getenv("PORT")
 	corsAllowed := cors.AllowAll().Handler(router)
