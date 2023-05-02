@@ -2,7 +2,28 @@ package userRepository
 
 import "twittor-api/domain/models/user"
 
-func NewUser() *user.User {
+func StubUser(t string) *user.User {
+	var _user *user.User
+
+	switch t {
+	case "email":
+		_user = getUserWithOutEmail()
+		break
+	case "created":
+		_user = registerUser()
+		break
+	case "password":
+		_user = getUserSizeLessPassword()
+		break
+	case "new":
+		_user = newUser()
+		break
+	}
+
+	return _user
+}
+
+func newUser() *user.User {
 	return &user.User{
 		Email:    "jodoe@gmail.com",
 		Name:     "Jonathan",
@@ -11,7 +32,7 @@ func NewUser() *user.User {
 	}
 }
 
-func RegisterUser() *user.User {
+func registerUser() *user.User {
 	return &user.User{
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",
@@ -20,7 +41,7 @@ func RegisterUser() *user.User {
 	}
 }
 
-func GetUserWithOutEmail() *user.User {
+func getUserWithOutEmail() *user.User {
 	return &user.User{
 		Email:    "",
 		Name:     "Jonathan",
@@ -29,7 +50,7 @@ func GetUserWithOutEmail() *user.User {
 	}
 }
 
-func GetUserSizeLessPassword() *user.User {
+func getUserSizeLessPassword() *user.User {
 	return &user.User{
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",

@@ -13,31 +13,31 @@ var testCases = []struct {
 	name          string
 	input         *user.User
 	errorExpected error
-	message       string
+	description   string
 }{
 	{
 		name:          "email is empty",
-		input:         userMockRepository.GetUserWithOutEmail(),
+		input:         userMockRepository.StubUser("email"),
 		errorExpected: errors.New(""),
-		message:       "It Was expected that user has email: ",
+		description:   "It Was expected that user has email: ",
 	},
 	{
 		name:          "password size",
-		input:         userMockRepository.GetUserSizeLessPassword(),
+		input:         userMockRepository.StubUser("password"),
 		errorExpected: errors.New(""),
-		message:       "It Was expected that user has password had with 6 or more chars: ",
+		description:   "It Was expected that user has password had with 6 or more chars: ",
 	},
 	{
 		name:          "user already exists",
-		input:         userMockRepository.RegisterUser(),
+		input:         userMockRepository.StubUser("created"),
 		errorExpected: errors.New(""),
-		message:       "user was expected to not exist: ",
+		description:   "user was expected to not exist: ",
 	},
 	{
 		name:          "user was created",
-		input:         userMockRepository.NewUser(),
+		input:         userMockRepository.StubUser("new"),
 		errorExpected: nil,
-		message:       "user was created!!! ",
+		description:   "user was created!!! ",
 	},
 }
 
@@ -51,7 +51,7 @@ func TestCreate(t *testing.T) {
 
 			_, err := service.Create(tc.input)
 			if reflect.TypeOf(tc.errorExpected) != reflect.TypeOf(err) {
-				t.Errorf("%s: %v", tc.message, err)
+				t.Errorf("%s: %v", tc.description, err)
 			}
 		})
 	}
