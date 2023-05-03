@@ -20,3 +20,13 @@ func (r *UserRepository) FindByEmail(email string) (*user.User, error) {
 
 	return StubUser("created"), nil
 }
+
+func (r *UserRepository) Find(ID string) (*user.User, error) {
+	u := StubUser("created")
+
+	if u.ID.Hex() != ID {
+		return nil, errors.New("user not found")
+	}
+
+	return u, nil
+}

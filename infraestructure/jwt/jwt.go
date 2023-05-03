@@ -1,4 +1,4 @@
-package jwt_service
+package jwt
 
 import (
 	"errors"
@@ -16,17 +16,17 @@ type Claim struct {
 	jwt.StandardClaims
 }
 
-type JwtService struct {
+type Jwt struct {
 	Secret []byte
 }
 
-func NewJwt() *JwtService {
-	return &JwtService{
+func NewJwt() *Jwt {
+	return &Jwt{
 		[]byte(os.Getenv("JWT_PASSWORD")),
 	}
 }
 
-func (j *JwtService) Encode(u user.User) (string, error) {
+func (j *Jwt) Encode(u user.User) (string, error) {
 	if u.Email == "" {
 		return "", errors.New("the user is null")
 	}
@@ -35,7 +35,7 @@ func (j *JwtService) Encode(u user.User) (string, error) {
 	return token.SignedString(j.Secret)
 }
 
-func (j *JwtService) Decode(jwtKey string) (*Claim, error) {
+func (j *Jwt) Decode(jwtKey string) (*Claim, error) {
 	claim := &Claim{}
 	splitToken := strings.Split(jwtKey, " ")
 

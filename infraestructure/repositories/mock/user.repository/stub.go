@@ -1,6 +1,9 @@
 package user_repository
 
-import "twittor-api/domain/models/user"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"twittor-api/domain/models/user"
+)
 
 func StubUser(t string) *user.User {
 	var _user *user.User
@@ -23,6 +26,11 @@ func StubUser(t string) *user.User {
 	return _user
 }
 
+func GetID() primitive.ObjectID {
+	objectID, _ := primitive.ObjectIDFromHex("0000000000000000000000")
+	return objectID
+}
+
 func newUser() *user.User {
 	return &user.User{
 		Email:    "jodoe@gmail.com",
@@ -34,6 +42,7 @@ func newUser() *user.User {
 
 func registerUser() *user.User {
 	u := &user.User{
+		ID:       GetID(),
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",

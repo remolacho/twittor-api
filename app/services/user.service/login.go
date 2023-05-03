@@ -1,8 +1,8 @@
 package user_service
 
 import (
-	jwtService "twittor-api/app/services/jwt.service"
 	"twittor-api/domain/models/user"
+	jwtService "twittor-api/infraestructure/jwt"
 )
 
 type ResponseJwt struct {
