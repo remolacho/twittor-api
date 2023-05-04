@@ -1,19 +1,23 @@
 package user_repository
 
 import (
+	"context"
 	"go.mongodb.org/mongo-driver/mongo"
-	"os"
 	"twittor-api/infraestructure/db/mongoDB"
 )
 
 type UserRepository struct {
-	User *mongo.Collection
+	User    *mongo.Collection
+	Context context.Context
+	Cancel  func()
 }
 
 func New() *UserRepository {
-	database := mongoDB.CurrentSession().Client.Database(os.Getenv("DATABASE_NAME"))
+	cnn := mongoDB.CurrentSession().DataBase()
 
 	return &UserRepository{
-		database.Collection("users"),
+		cnn.Database.Collection("users"),
+		cnn.Ctx,
+		cnn.Cancel,
 	}
 }

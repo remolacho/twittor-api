@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 var (
@@ -16,6 +17,12 @@ var (
 
 type Mongo struct {
 	Client *mongo.Client
+}
+
+type Database struct {
+	*mongo.Database
+	Ctx    context.Context
+	Cancel func()
 }
 
 func CurrentSession() *Mongo {
@@ -32,6 +39,16 @@ func (m *Mongo) Check() int {
 	}
 
 	return 1
+}
+
+func (m *Mongo) DataBase() *Database {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+
+	return &Database{
+		data.Client.Database(os.Getenv("DATABASE_NAME")),
+		ctx,
+		cancel,
+	}
 }
 
 func initDB() {
