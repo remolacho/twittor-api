@@ -15,7 +15,7 @@ func NewUser(repository user.IUser) *UserCreateService {
 	}
 }
 
-func (us *UserCreateService) Create(u *user.User) (*user.User, error) {
+func (s *UserCreateService) Create(u *user.User) (*user.User, error) {
 	if !u.EmailPresent() {
 		return u, errors.New("error to create user, email is empty")
 	}
@@ -24,9 +24,9 @@ func (us *UserCreateService) Create(u *user.User) (*user.User, error) {
 		return u, errors.New("the password must have a minimum of 6 characters")
 	}
 
-	if us.RepositoryUser.ExistsByEmail(u.Email) {
+	if s.RepositoryUser.ExistsByEmail(u.Email) {
 		return u, errors.New("the user already exists")
 	}
 
-	return us.RepositoryUser.Create(u)
+	return s.RepositoryUser.Create(u)
 }
