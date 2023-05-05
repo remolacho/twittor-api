@@ -42,7 +42,7 @@ var testCasesUpdateUser = []struct {
 
 func TestUpdate(t *testing.T) {
 	mockFactory := repository_factory_user.Build("test")
-	service := NewUpdateUser(mockFactory)
+	service := NewUpdate(mockFactory)
 
 	for _, tc := range testCasesUpdateUser {
 		t.Run(tc.name, func(t *testing.T) {
