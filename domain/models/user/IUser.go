@@ -5,4 +5,5 @@ type IUser interface {
 	ExistsByEmail(email string) bool
 	FindByEmail(email string) (*User, error)
 	Find(ID string) (*User, error)
+	Update(u *User) (*User, error)
 }

@@ -33,6 +33,7 @@ func GetID() primitive.ObjectID {
 
 func newUser() *user.User {
 	return &user.User{
+		ID:       GetID(),
 		Email:    "jodoe@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",
@@ -56,6 +57,7 @@ func registerUser() *user.User {
 
 func getUserWithOutEmail() *user.User {
 	return &user.User{
+		ID:       GetID(),
 		Email:    "",
 		Name:     "Jonathan",
 		LastName: "Rojas",
@@ -65,6 +67,7 @@ func getUserWithOutEmail() *user.User {
 
 func getUserSizeLessPassword() *user.User {
 	return &user.User{
+		ID:       GetID(),
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",
