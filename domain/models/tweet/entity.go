@@ -11,3 +11,9 @@ type Tweet struct {
 	Message   string             `bson:"message" json:"message,omitempty"`
 	CreatedAt time.Time          `bson:"createdAt" json:"createdAt,omitempty"`
 }
+
+func New(userID string) *Tweet {
+	return &Tweet{
+		UserID: userID,
+	}
+}
