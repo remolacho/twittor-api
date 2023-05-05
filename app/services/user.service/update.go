@@ -9,7 +9,7 @@ type UserUpdateService struct {
 	RepositoryUser user.IUser
 }
 
-func NewUpdateUser(repository user.IUser) *UserUpdateService {
+func NewUpdate(repository user.IUser) *UserUpdateService {
 	return &UserUpdateService{
 		repository,
 	}
