@@ -1,8 +1,8 @@
 package user
 
-import "os/user"
-
 type IUser interface {
-	Create(u *user.User) (error, *user.User)
+	Create(u *User) (*User, error)
 	ExistsByEmail(email string) bool
+	FindByEmail(email string) (*User, error)
+	Find(ID string) (*User, error)
 }

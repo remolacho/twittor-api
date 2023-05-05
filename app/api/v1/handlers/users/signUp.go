@@ -3,8 +3,9 @@ package user
 import (
 	"encoding/json"
 	"net/http"
-	"twittor-api/application/services/userService"
+	userService "twittor-api/app/services/user.service"
 	"twittor-api/domain/models/user"
+	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 )
 
 // SignUp POST route /v1/users/sign-up
@@ -17,11 +18,12 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	service := userService.NewUser()
-	errUserService, _ := service.Create(u)
+	repositoryUser := repositoryFactoryUser.Build()
+	service := userService.NewUser(repositoryUser)
+	_, errService := service.Create(u)
 
-	if errUserService != nil {
-		http.Error(w, errUserService.Error(), 400)
+	if errService != nil {
+		http.Error(w, errService.Error(), 400)
 		return
 	}
 

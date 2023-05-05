@@ -1,13 +1,13 @@
-package db
+package mongoDB
 
 import (
 	"context"
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 var (
@@ -17,6 +17,12 @@ var (
 
 type Mongo struct {
 	Client *mongo.Client
+}
+
+type Database struct {
+	*mongo.Database
+	Ctx    context.Context
+	Cancel func()
 }
 
 func CurrentSession() *Mongo {
@@ -35,16 +41,22 @@ func (m *Mongo) Check() int {
 	return 1
 }
 
+func (m *Mongo) DataBase() *Database {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+
+	return &Database{
+		data.Client.Database(os.Getenv("DATABASE_NAME")),
+		ctx,
+		cancel,
+	}
+}
+
 func initDB() {
 	client := getConnection()
 	data = &Mongo{Client: client}
 }
 
 func getConnection() *mongo.Client {
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	uriConn := os.Getenv("DATABASE_URI")
 	clientOptions := options.Client().ApplyURI(uriConn)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
