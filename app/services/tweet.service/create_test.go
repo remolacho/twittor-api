@@ -55,7 +55,7 @@ func TestCreateSuccess(t *testing.T) {
 		description string
 	}{
 		name:        "tweet created",
-		input:       tweetMockRepository.StubTweet("createdTweet"),
+		input:       tweetMockRepository.StubTweet("createTweet"),
 		description: "the tweet was created with success: ",
 	}
 

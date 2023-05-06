@@ -2,6 +2,7 @@ package tweet_repository
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"time"
 	"twittor-api/domain/models/tweet"
 	"twittor-api/domain/models/user"
 	userRepository "twittor-api/infraestructure/repositories/mock/user.repository"
@@ -20,8 +21,8 @@ func StubTweet(t string) *tweet.Tweet {
 	case "userNotFound":
 		_tweet = userNotFound()
 		break
-	case "createdTweet":
-		_tweet = createdTweet()
+	case "createTweet":
+		_tweet = createTweet()
 		break
 	}
 
@@ -46,9 +47,10 @@ func messageEmpty() *tweet.Tweet {
 	return t
 }
 
-func createdTweet() *tweet.Tweet {
+func createTweet() *tweet.Tweet {
 	t := tweet.New(currentUser().ID.Hex())
 	t.Message = "My tweet test"
+	t.CreatedAt = time.Now()
 
 	return t
 }

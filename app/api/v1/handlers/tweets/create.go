@@ -23,8 +23,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 	repositoryTweet := repositoryFactoryTweet.Build()
 	repositoryUser := repositoryFactoryUser.Build()
-
 	service := tweetService.NewTweet(repositoryTweet, repositoryUser)
+
 	_, err = service.Create(t)
 
 	if err != nil {
