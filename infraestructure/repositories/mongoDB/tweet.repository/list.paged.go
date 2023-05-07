@@ -27,12 +27,12 @@ func (r *TweetRepository) AllByPagedUser(userID string, page int64) ([]tweet.Twe
 
 func (r *TweetRepository) optionsPage(page int64) *options.FindOptions {
 	var limit int64 = 20
-	paged := (page - 1) * limit
+	skipTweets := (page - 1) * limit
 
 	opts := options.Find()
 	opts.SetLimit(limit)
 	opts.SetSort(bson.D{{Key: "createdAt", Value: -1}})
-	opts.SetSkip(paged)
+	opts.SetSkip(skipTweets)
 	return opts
 }
 

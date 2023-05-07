@@ -22,6 +22,11 @@ var testCasesListTweetsValidation = []struct {
 		input:       input{userID: primitive.NewObjectID().Hex(), page: 1},
 		description: "the list is empty, the user not found tweets",
 	},
+	{
+		name:        "userID is empty",
+		input:       input{userID: "", page: 1},
+		description: "list empty, userID is empty",
+	},
 }
 
 func TestAllByPagedUserError(t *testing.T) {
