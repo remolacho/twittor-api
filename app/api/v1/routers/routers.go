@@ -13,6 +13,7 @@ func Handler() {
 	router := mux.NewRouter()
 
 	v1.UserRoutes(router)
+	v1.TweetRoutes(router)
 
 	port := os.Getenv("PORT")
 	corsAllowed := cors.AllowAll().Handler(router)

@@ -55,7 +55,7 @@ func TestLogin(t *testing.T) {
 
 			_, got := service.Login(tc.input.email, tc.input.password)
 			if tc.expected != got {
-				t.Errorf("%s: ", tc.description)
+				t.Errorf("%s", tc.description)
 			}
 
 		})

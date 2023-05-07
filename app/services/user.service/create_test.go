@@ -19,19 +19,19 @@ var testCasesCreateUser = []struct {
 		name:          "email is empty",
 		input:         userMockRepository.StubUser("email"),
 		errorExpected: errors.New(""),
-		description:   "It Was expected that user has email: ",
+		description:   "It Was expected that user has email",
 	},
 	{
 		name:          "password size",
 		input:         userMockRepository.StubUser("password"),
 		errorExpected: errors.New(""),
-		description:   "It Was expected that user has password had with 6 or more chars: ",
+		description:   "It Was expected that user has password had with 6 or more chars",
 	},
 	{
 		name:          "user already exists",
 		input:         userMockRepository.StubUser("created"),
 		errorExpected: errors.New(""),
-		description:   "user was expected to not exist: ",
+		description:   "user was expected to not exist",
 	},
 	{
 		name:          "user was created",
