@@ -6,8 +6,10 @@ import (
 	"reflect"
 	"testing"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	mockUserRepository "twittor-api/infraestructure/stubs/users"
+	stubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
+
+var stubProfile = stubFactoryUser.Build()
 
 var testCases = []struct {
 	name          string
@@ -23,7 +25,7 @@ var testCases = []struct {
 	},
 	{
 		name:          "the profile ID",
-		ID:            mockUserRepository.GetID().Hex(),
+		ID:            stubProfile.User("created").ID.Hex(),
 		expectedError: nil,
 		description:   "the profile is found",
 	},

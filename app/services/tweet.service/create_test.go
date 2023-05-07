@@ -5,8 +5,10 @@ import (
 	"twittor-api/domain/models/tweet"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	tweetMockRepository "twittor-api/infraestructure/stubs/tweets"
+	StubFactoryTweet "twittor-api/infraestructure/stubs/factories/factory.tweets"
 )
+
+var stubCreate = StubFactoryTweet.Build()
 
 var testCasesCreateTweetValidation = []struct {
 	name        string
@@ -15,17 +17,17 @@ var testCasesCreateTweetValidation = []struct {
 }{
 	{
 		name:        "message is empty",
-		input:       tweetMockRepository.StubTweet("messageEmpty"),
+		input:       stubCreate.Tweet("messageEmpty"),
 		description: "It Was expected that tweet has message",
 	},
 	{
 		name:        "userId is empty",
-		input:       tweetMockRepository.StubTweet("userIdEmpty"),
+		input:       stubCreate.Tweet("userIdEmpty"),
 		description: "It Was expected that tweet has userID",
 	},
 	{
 		name:        "user not found",
-		input:       tweetMockRepository.StubTweet("userNotFound"),
+		input:       stubCreate.Tweet("userNotFound"),
 		description: "The user not found",
 	},
 }
@@ -55,7 +57,7 @@ func TestCreateSuccess(t *testing.T) {
 		description string
 	}{
 		name:        "tweet created",
-		input:       tweetMockRepository.StubTweet("createTweet"),
+		input:       stubCreate.Tweet("createTweet"),
 		description: "the tweet was created with success",
 	}
 

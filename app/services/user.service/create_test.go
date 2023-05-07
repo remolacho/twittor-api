@@ -6,8 +6,10 @@ import (
 	"testing"
 	"twittor-api/domain/models/user"
 	"twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	userMockRepository "twittor-api/infraestructure/stubs/users"
+	stubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
+
+var stubCreate = stubFactoryUser.Build()
 
 var testCasesCreateUser = []struct {
 	name          string
@@ -17,25 +19,25 @@ var testCasesCreateUser = []struct {
 }{
 	{
 		name:          "email is empty",
-		input:         userMockRepository.StubUser("email"),
+		input:         stubCreate.User("email"),
 		errorExpected: errors.New(""),
 		description:   "It Was expected that user has email",
 	},
 	{
 		name:          "password size",
-		input:         userMockRepository.StubUser("password"),
+		input:         stubCreate.User("password"),
 		errorExpected: errors.New(""),
 		description:   "It Was expected that user has password had with 6 or more chars",
 	},
 	{
 		name:          "user already exists",
-		input:         userMockRepository.StubUser("created"),
+		input:         stubCreate.User("created"),
 		errorExpected: errors.New(""),
 		description:   "user was expected to not exist",
 	},
 	{
 		name:          "user was created",
-		input:         userMockRepository.StubUser("new"),
+		input:         stubCreate.User("new"),
 		errorExpected: nil,
 		description:   "user was created!!! ",
 	},

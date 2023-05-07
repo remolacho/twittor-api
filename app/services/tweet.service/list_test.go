@@ -4,8 +4,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"testing"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
-	user_repository "twittor-api/infraestructure/stubs/users"
+	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
+
+var stub = StubFactoryUser.Build()
 
 type input struct {
 	userID string
@@ -58,7 +60,7 @@ func TestAllByPagedUserSuccess(t *testing.T) {
 		description string
 	}{
 		name:        "list success",
-		input:       input{userID: user_repository.GetID().Hex(), page: 1},
+		input:       input{userID: stub.User("created").ID.Hex(), page: 1},
 		description: "the list is success ",
 	}
 
