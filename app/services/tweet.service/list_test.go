@@ -1,0 +1,69 @@
+package tweet_service
+
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"testing"
+	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
+	user_repository "twittor-api/infraestructure/repositories/mock/user.repository"
+)
+
+type input struct {
+	userID string
+	page   int64
+}
+
+var testCasesListTweetsValidation = []struct {
+	name        string
+	input       input
+	description string
+}{
+	{
+		name:        "list empty",
+		input:       input{userID: primitive.NewObjectID().Hex(), page: 1},
+		description: "the list is empty, the user not found tweets",
+	},
+}
+
+func TestAllByPagedUserError(t *testing.T) {
+	mockFactoryTweet := repositoryFactoryTweet.Build("test")
+
+	service := NewList(mockFactoryTweet)
+
+	for _, tc := range testCasesListTweetsValidation {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			_, err := service.AllByPagedUser(tc.input.userID, tc.input.page)
+
+			if err == nil {
+				t.Errorf("%s:", tc.description)
+			}
+		})
+	}
+}
+
+func TestAllByPagedUserSuccess(t *testing.T) {
+	mockFactoryTweet := repositoryFactoryTweet.Build("test")
+
+	service := NewList(mockFactoryTweet)
+
+	var testCase = struct {
+		name        string
+		input       input
+		description string
+	}{
+		name:        "list success",
+		input:       input{userID: user_repository.GetID().Hex(), page: 1},
+		description: "the list is success ",
+	}
+
+	t.Run(testCase.name, func(t *testing.T) {
+		t.Parallel()
+
+		_, err := service.AllByPagedUser(testCase.input.userID, testCase.input.page)
+
+		if err != nil {
+			t.Errorf("%s: %v", testCase.description, err.Error())
+		}
+	})
+}

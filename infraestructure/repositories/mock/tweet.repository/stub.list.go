@@ -7,14 +7,14 @@ func StubTweets(t string) []tweet.Tweet {
 
 	switch t {
 	case "list":
-		tweets = list5()
+		tweets = list()
 		break
 	}
 
 	return tweets
 }
 
-func list5() []tweet.Tweet {
+func list() []tweet.Tweet {
 	var tweets []tweet.Tweet
 
 	for i := 0; i <= 10; i++ {

@@ -16,17 +16,17 @@ var testCasesCreateTweetValidation = []struct {
 	{
 		name:        "message is empty",
 		input:       tweetMockRepository.StubTweet("messageEmpty"),
-		description: "It Was expected that tweet has message: ",
+		description: "It Was expected that tweet has message",
 	},
 	{
 		name:        "userId is empty",
 		input:       tweetMockRepository.StubTweet("userIdEmpty"),
-		description: "It Was expected that tweet has userID: ",
+		description: "It Was expected that tweet has userID",
 	},
 	{
 		name:        "user not found",
 		input:       tweetMockRepository.StubTweet("userNotFound"),
-		description: "The user not found: ",
+		description: "The user not found",
 	},
 }
 
@@ -42,7 +42,7 @@ func TestCreateError(t *testing.T) {
 
 			_, err := service.Create(tc.input)
 			if err == nil {
-				t.Errorf("%s:", tc.description)
+				t.Errorf("%s", tc.description)
 			}
 		})
 	}
@@ -56,7 +56,7 @@ func TestCreateSuccess(t *testing.T) {
 	}{
 		name:        "tweet created",
 		input:       tweetMockRepository.StubTweet("createTweet"),
-		description: "the tweet was created with success: ",
+		description: "the tweet was created with success",
 	}
 
 	mockFactoryTweet := repositoryFactoryTweet.Build("test")

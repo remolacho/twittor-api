@@ -22,14 +22,14 @@ var testCasesUpdateUser = []struct {
 		ID:            primitive.NewObjectID().Hex(),
 		input:         userMockRepository.StubUser("created"),
 		errorExpected: errors.New(""),
-		description:   "The user not found in DB: ",
+		description:   "The user not found in DB",
 	},
 	{
 		name:          "email is empty",
 		ID:            userMockRepository.GetID().Hex(),
 		input:         userMockRepository.StubUser("email"),
 		errorExpected: errors.New(""),
-		description:   "It Was expected that user has email: ",
+		description:   "It Was expected that user has email",
 	},
 	{
 		name:          "update success",
