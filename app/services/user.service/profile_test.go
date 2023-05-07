@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	mockUserRepository "twittor-api/infraestructure/repositories/mock/user.repository"
+	mockUserRepository "twittor-api/infraestructure/stubs/users"
 )
 
 var testCases = []struct {

@@ -1,6 +1,8 @@
-package tweet_repository
+package tweets
 
-import "twittor-api/domain/models/tweet"
+import (
+	"twittor-api/domain/models/tweet"
+)
 
 func StubTweets(t string) []tweet.Tweet {
 	var tweets []tweet.Tweet

@@ -1,4 +1,4 @@
-package user_repository
+package users
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -33,7 +33,6 @@ func GetID() primitive.ObjectID {
 
 func newUser() *user.User {
 	return &user.User{
-		ID:       GetID(),
 		Email:    "jodoe@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",

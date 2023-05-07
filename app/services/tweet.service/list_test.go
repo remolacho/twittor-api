@@ -4,7 +4,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"testing"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
-	user_repository "twittor-api/infraestructure/repositories/mock/user.repository"
+	user_repository "twittor-api/infraestructure/stubs/users"
 )
 
 type input struct {

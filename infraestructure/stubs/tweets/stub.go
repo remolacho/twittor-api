@@ -1,11 +1,11 @@
-package tweet_repository
+package tweets
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 	"twittor-api/domain/models/tweet"
 	"twittor-api/domain/models/user"
-	userRepository "twittor-api/infraestructure/repositories/mock/user.repository"
+	userRepository "twittor-api/infraestructure/stubs/users"
 )
 
 func StubTweet(t string) *tweet.Tweet {
