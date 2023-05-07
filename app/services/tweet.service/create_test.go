@@ -5,7 +5,7 @@ import (
 	"twittor-api/domain/models/tweet"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	tweetMockRepository "twittor-api/infraestructure/repositories/mock/tweet.repository"
+	tweetMockRepository "twittor-api/infraestructure/stubs/tweets"
 )
 
 var testCasesCreateTweetValidation = []struct {

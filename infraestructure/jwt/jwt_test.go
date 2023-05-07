@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 	"twittor-api/domain/models/user"
-	userMockRepository "twittor-api/infraestructure/repositories/mock/user.repository"
+	userMockRepository "twittor-api/infraestructure/stubs/users"
 )
 
 var testCasesEncode = []struct {

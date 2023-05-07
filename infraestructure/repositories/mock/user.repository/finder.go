@@ -3,10 +3,11 @@ package user_repository
 import (
 	"errors"
 	"twittor-api/domain/models/user"
+	"twittor-api/infraestructure/stubs/users"
 )
 
 func (r *UserRepository) ExistsByEmail(email string) bool {
-	if StubUser("created").Email == email {
+	if users.StubUser("created").Email == email {
 		return true
 	}
 
@@ -18,11 +19,11 @@ func (r *UserRepository) FindByEmail(email string) (*user.User, error) {
 		return nil, errors.New("user not found")
 	}
 
-	return StubUser("created"), nil
+	return users.StubUser("created"), nil
 }
 
 func (r *UserRepository) Find(ID string) (*user.User, error) {
-	u := StubUser("created")
+	u := users.StubUser("created")
 
 	if u.ID.Hex() != ID {
 		return nil, errors.New("user not found")

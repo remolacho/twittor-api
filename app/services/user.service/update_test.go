@@ -7,7 +7,7 @@ import (
 	"testing"
 	"twittor-api/domain/models/user"
 	"twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	userMockRepository "twittor-api/infraestructure/repositories/mock/user.repository"
+	userMockRepository "twittor-api/infraestructure/stubs/users"
 )
 
 var testCasesUpdateUser = []struct {

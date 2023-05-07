@@ -53,7 +53,7 @@ func getConnection() *mongo.Client {
 		return client
 	}
 
-	log.Println("the connection to mongoDB is success !!!")
+	log.Println("the connection to mongoDB is success " + os.Getenv("DATABASE_NAME") + "!!!")
 
 	return client
 }
