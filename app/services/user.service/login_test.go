@@ -51,9 +51,8 @@ func TestLogin(t *testing.T) {
 
 	for _, tc := range testCasesSignInUser {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-
 			_, got := service.Login(tc.input.email, tc.input.password)
+
 			if tc.expected != got {
 				t.Errorf("%s", tc.description)
 			}

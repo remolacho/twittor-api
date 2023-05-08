@@ -37,12 +37,6 @@ var testCasesDeleteTweetValidation = []struct {
 		input:       inputDelete{tweetID: "", userID: stubDelete.Tweet("createTweet").UserID},
 		description: "this tweet not found by id empty",
 	},
-	{
-		name:        "delete success",
-		expected:    true,
-		input:       inputDelete{tweetID: stubDelete.Tweet("createTweet").ID.Hex(), userID: stubDelete.Tweet("createTweet").UserID},
-		description: "this tweet was deleted success",
-	},
 }
 
 func TestDeleteError(t *testing.T) {
@@ -52,7 +46,6 @@ func TestDeleteError(t *testing.T) {
 
 	for _, tc := range testCasesDeleteTweetValidation {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 
 			got, _ := service.Delete(tc.input.tweetID, tc.input.userID)
 
@@ -61,4 +54,30 @@ func TestDeleteError(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestDeleteSuccess(t *testing.T) {
+	testCase := struct {
+		name        string
+		expected    bool
+		input       inputDelete
+		description string
+	}{
+		name:        "delete success",
+		expected:    true,
+		input:       inputDelete{tweetID: stubDelete.Tweet("createTweet").ID.Hex(), userID: stubDelete.Tweet("createTweet").UserID},
+		description: "this tweet was deleted success",
+	}
+
+	mockFactoryTweet := repositoryFactoryTweet.Build("test")
+
+	service := NewDelete(mockFactoryTweet)
+
+	t.Run(testCase.name, func(t *testing.T) {
+		got, _ := service.Delete(testCase.input.tweetID, testCase.input.userID)
+
+		if got != testCase.expected {
+			t.Errorf("%s", testCase.description)
+		}
+	})
 }
