@@ -1,7 +1,6 @@
 package tweet_service
 
 import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"testing"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
@@ -21,7 +20,7 @@ var testCasesListTweetsValidation = []struct {
 }{
 	{
 		name:        "list empty",
-		input:       input{userID: primitive.NewObjectID().Hex(), page: 1},
+		input:       input{userID: "999999999999999999", page: 1},
 		description: "the list is empty, the user not found tweets",
 	},
 	{

@@ -7,6 +7,7 @@ import (
 )
 
 func TweetRoutes(router *mux.Router) {
-	router.HandleFunc("/v1/tweets/create", middleware.Authorization(tweet.Create)).Methods("POST")
+	router.HandleFunc("/v1/tweet", middleware.Authorization(tweet.Create)).Methods("POST")
 	router.HandleFunc("/v1/tweets", middleware.Authorization(tweet.Index)).Methods("GET")
+	router.HandleFunc("/v1/tweet", middleware.Authorization(tweet.Delete)).Methods("DELETE")
 }
