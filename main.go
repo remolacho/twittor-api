@@ -2,12 +2,17 @@ package main
 
 import (
 	"log"
-	"twittor-api/application/api/v1/routers"
-	"twittor-api/infraestructure/db"
+	"twittor-api/app/api/v1/routers"
+	"twittor-api/infraestructure/db/mongoDB"
+	"twittor-api/infraestructure/environment"
 )
 
 func main() {
-	if db.CurrentSession().Check() == 0 {
+	if err := environment.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	if mongoDB.CurrentSession().Check() == 0 {
 		log.Fatal("error connection to DB")
 	}
 
