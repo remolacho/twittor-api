@@ -2,7 +2,7 @@ package user_service
 
 import (
 	"testing"
-	"twittor-api/infraestructure/repositories/factories/repository.factory.user"
+	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 )
 
 type input struct {
@@ -46,7 +46,7 @@ var testCasesSignInUser = []struct {
 }
 
 func TestLogin(t *testing.T) {
-	mockFactory := repository_factory_user.Build("test")
+	mockFactory := repositoryFactoryUser.Build("test")
 	service := NewLogin(mockFactory)
 
 	for _, tc := range testCasesSignInUser {

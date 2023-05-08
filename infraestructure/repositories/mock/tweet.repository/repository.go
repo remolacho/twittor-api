@@ -1,7 +1,16 @@
 package tweet_repository
 
-type TweetRepository struct{}
+import (
+	"twittor-api/infraestructure/stubs"
+	stubFactoryTweet "twittor-api/infraestructure/stubs/factories/factory.tweets"
+)
+
+type TweetRepository struct {
+	Stub stubs.IStubTweet
+}
 
 func New() *TweetRepository {
-	return &TweetRepository{}
+	return &TweetRepository{
+		stubFactoryTweet.Build(),
+	}
 }

@@ -5,33 +5,7 @@ import (
 	"twittor-api/domain/models/user"
 )
 
-func StubUser(t string) *user.User {
-	var _user *user.User
-
-	switch t {
-	case "email":
-		_user = getUserWithOutEmail()
-		break
-	case "created":
-		_user = registerUser()
-		break
-	case "password":
-		_user = getUserSizeLessPassword()
-		break
-	case "new":
-		_user = newUser()
-		break
-	}
-
-	return _user
-}
-
-func GetID() primitive.ObjectID {
-	objectID, _ := primitive.ObjectIDFromHex("0000000000000000000000")
-	return objectID
-}
-
-func newUser() *user.User {
+func (s *Stub) newUser() *user.User {
 	return &user.User{
 		Email:    "jodoe@gmail.com",
 		Name:     "Jonathan",
@@ -40,9 +14,9 @@ func newUser() *user.User {
 	}
 }
 
-func registerUser() *user.User {
+func (s *Stub) created() *user.User {
 	u := &user.User{
-		ID:       GetID(),
+		ID:       s.getID(),
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",
@@ -54,9 +28,9 @@ func registerUser() *user.User {
 	return u
 }
 
-func getUserWithOutEmail() *user.User {
+func (s *Stub) email() *user.User {
 	return &user.User{
-		ID:       GetID(),
+		ID:       s.getID(),
 		Email:    "",
 		Name:     "Jonathan",
 		LastName: "Rojas",
@@ -64,12 +38,17 @@ func getUserWithOutEmail() *user.User {
 	}
 }
 
-func getUserSizeLessPassword() *user.User {
+func (s *Stub) password() *user.User {
 	return &user.User{
-		ID:       GetID(),
+		ID:       s.getID(),
 		Email:    "jonathangrh.25@gmail.com",
 		Name:     "Jonathan",
 		LastName: "Rojas",
 		Password: "12345",
 	}
+}
+
+func (s *Stub) getID() primitive.ObjectID {
+	objectID, _ := primitive.ObjectIDFromHex("0000000000000000000000")
+	return objectID
 }

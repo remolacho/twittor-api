@@ -5,8 +5,10 @@ import (
 	"reflect"
 	"testing"
 	"twittor-api/domain/models/user"
-	userMockRepository "twittor-api/infraestructure/stubs/users"
+	factory_users "twittor-api/infraestructure/stubs/factories/factory.users"
 )
+
+var stubJwt = factory_users.Build()
 
 var testCasesEncode = []struct {
 	name          string
@@ -16,13 +18,13 @@ var testCasesEncode = []struct {
 }{
 	{
 		name:          "User nil, Jwt error",
-		input:         *userMockRepository.StubUser("email"),
+		input:         *stubJwt.User("email"),
 		expectedError: errors.New(""),
 		description:   "the user is nil",
 	},
 	{
 		name:          "the jwt success",
-		input:         *userMockRepository.StubUser("created"),
+		input:         *stubJwt.User("created"),
 		expectedError: nil,
 		description:   "the jwt is success",
 	},
@@ -52,14 +54,14 @@ var testCasesDecode = []struct {
 }{
 	{
 		name:          "the jwt bad format",
-		user:          *userMockRepository.StubUser("created"),
+		user:          *stubJwt.User("created"),
 		bearer:        "",
 		expectedError: errors.New(""),
 		description:   "the jwt bad format",
 	},
 	{
 		name:          "the jwt is success decode",
-		user:          *userMockRepository.StubUser("created"),
+		user:          *stubJwt.User("created"),
 		bearer:        "bearer",
 		expectedError: nil,
 		description:   "the jwt is success decode",

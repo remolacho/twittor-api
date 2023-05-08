@@ -7,8 +7,10 @@ import (
 	"testing"
 	"twittor-api/domain/models/user"
 	"twittor-api/infraestructure/repositories/factories/repository.factory.user"
-	userMockRepository "twittor-api/infraestructure/stubs/users"
+	stubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
+
+var stubUpdate = stubFactoryUser.Build()
 
 var testCasesUpdateUser = []struct {
 	name          string
@@ -20,21 +22,21 @@ var testCasesUpdateUser = []struct {
 	{
 		name:          "user not found",
 		ID:            primitive.NewObjectID().Hex(),
-		input:         userMockRepository.StubUser("created"),
+		input:         stubUpdate.User("created"),
 		errorExpected: errors.New(""),
 		description:   "The user not found in DB",
 	},
 	{
 		name:          "email is empty",
-		ID:            userMockRepository.GetID().Hex(),
-		input:         userMockRepository.StubUser("email"),
+		ID:            stubUpdate.User("email").ID.Hex(),
+		input:         stubUpdate.User("email"),
 		errorExpected: errors.New(""),
 		description:   "It Was expected that user has email",
 	},
 	{
 		name:          "update success",
-		ID:            userMockRepository.GetID().Hex(),
-		input:         userMockRepository.StubUser("created"),
+		ID:            stubUpdate.User("created").ID.Hex(),
+		input:         stubUpdate.User("created"),
 		errorExpected: nil,
 		description:   "the user was updated",
 	},
