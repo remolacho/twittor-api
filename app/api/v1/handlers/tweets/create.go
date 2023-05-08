@@ -10,7 +10,7 @@ import (
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 )
 
-// Create POST route /v1/tweets/create
+// Create POST route /v1/tweet
 func Create(w http.ResponseWriter, r *http.Request) {
 	claim, _ := middleware.AuthClaim(r)
 	t := tweet.New(claim.ID.Hex())
