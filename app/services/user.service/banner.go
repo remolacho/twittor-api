@@ -6,26 +6,26 @@ import (
 	"twittor-api/domain/models/user"
 )
 
-type AvatarService struct {
+type BannerService struct {
 	RepositoryUser user.IUser
 	MetaData       *upload.MetaDataFile
 }
 
-func NewAvatar(repository user.IUser, metaData *upload.MetaDataFile) *AvatarService {
+func NewBanner(repository user.IUser, metaData *upload.MetaDataFile) *AvatarService {
 	return &AvatarService{
 		repository,
 		metaData,
 	}
 }
 
-func (s *AvatarService) Upload(userID string) (bool, error) {
+func (s *BannerService) Upload(userID string) (bool, error) {
 	currentUser, err := s.RepositoryUser.Find(userID)
 
 	if err != nil {
-		return false, errors.New("user not found for upload avatar")
+		return false, errors.New("user not found for upload banner")
 	}
 
-	currentUser.Avatar = s.MetaData.Name
+	currentUser.Banner = s.MetaData.Name
 	_, err = s.RepositoryUser.Update(currentUser)
 
 	if err != nil {

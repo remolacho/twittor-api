@@ -8,30 +8,30 @@ import (
 	uploadFile "twittor-api/infraestructure/upload.file"
 )
 
-// Avatar POST route /v1/users/avatar-upload
-func Avatar(w http.ResponseWriter, r *http.Request) {
+// Banner POST route /v1/users/banner-upload
+func Banner(w http.ResponseWriter, r *http.Request) {
 	claim, _ := middleware.AuthClaim(r)
-	file, handler, err := r.FormFile("avatar")
+	file, handler, err := r.FormFile("banner")
 
 	if err != nil {
-		http.Error(w, "Error upload avatar "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error upload banner "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	serviceUpload := uploadFile.New(file, handler, claim.ID.Hex())
-	avatar, errOS := serviceUpload.Call("avatars")
+	avatar, errOS := serviceUpload.Call("banners")
 
 	if errOS != nil {
-		http.Error(w, "Error upload avatar "+errOS.Error(), http.StatusBadRequest)
+		http.Error(w, "Error upload banner "+errOS.Error(), http.StatusBadRequest)
 		return
 	}
 
 	repository := repositoryFactoryUser.Build()
-	serviceAvatar := userService.NewAvatar(repository, avatar)
+	serviceAvatar := userService.NewBanner(repository, avatar)
 	_, err = serviceAvatar.Upload(claim.ID.Hex())
 
 	if err != nil {
-		http.Error(w, "Error upload avatar "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error upload banner "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
