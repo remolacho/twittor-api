@@ -11,10 +11,20 @@ type AvatarService struct {
 	MetaData       *upload.MetaDataFile
 }
 
-func NewAvatar(repository user.IUser, metaData *upload.MetaDataFile) *AvatarService {
+type ResponseAvatar struct {
+	Avatar string
+}
+
+func NewAvatar(repository user.IUser, metaData ...*upload.MetaDataFile) *AvatarService {
+	var meta *upload.MetaDataFile
+
+	if metaData != nil {
+		meta = metaData[0]
+	}
+
 	return &AvatarService{
 		repository,
-		metaData,
+		meta,
 	}
 }
 
@@ -33,4 +43,18 @@ func (s *AvatarService) Upload(userID string) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func (s *AvatarService) Get(userID string) (bool, ResponseAvatar, error) {
+	currentUser, err := s.RepositoryUser.Find(userID)
+
+	if err != nil {
+		return false, ResponseAvatar{}, errors.New("user not found")
+	}
+
+	response := ResponseAvatar{
+		Avatar: currentUser.Avatar,
+	}
+
+	return true, response, nil
 }

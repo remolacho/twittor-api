@@ -13,4 +13,6 @@ func UserRoutes(router *mux.Router) {
 	router.HandleFunc("/v1/users/update", middleware.Authorization(user.Update)).Methods("PUT")
 	router.HandleFunc("/v1/users/avatar-upload", middleware.Authorization(user.Avatar)).Methods("POST")
 	router.HandleFunc("/v1/users/banner-upload", middleware.Authorization(user.Banner)).Methods("POST")
+	router.HandleFunc("/v1/users/avatar", middleware.Authorization(user.GetAvatar)).Methods("GET")
+	router.HandleFunc("/v1/users/banner", middleware.Authorization(user.GetBanner)).Methods("GET")
 }

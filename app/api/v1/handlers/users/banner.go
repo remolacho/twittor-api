@@ -1,6 +1,7 @@
 package user
 
 import (
+	"encoding/json"
 	"net/http"
 	"twittor-api/app/middleware"
 	userService "twittor-api/app/services/user.service"
@@ -19,7 +20,7 @@ func Banner(w http.ResponseWriter, r *http.Request) {
 	}
 
 	serviceUpload := uploadFile.New(file, handler, claim.ID.Hex())
-	avatar, errOS := serviceUpload.Call("banners")
+	banner, errOS := serviceUpload.Call("banners")
 
 	if errOS != nil {
 		http.Error(w, "Error upload banner "+errOS.Error(), http.StatusBadRequest)
@@ -27,8 +28,8 @@ func Banner(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repository := repositoryFactoryUser.Build()
-	serviceAvatar := userService.NewBanner(repository, avatar)
-	_, err = serviceAvatar.Upload(claim.ID.Hex())
+	serviceBanner := userService.NewBanner(repository, banner)
+	_, err = serviceBanner.Upload(claim.ID.Hex())
 
 	if err != nil {
 		http.Error(w, "Error upload banner "+err.Error(), http.StatusBadRequest)
@@ -36,4 +37,22 @@ func Banner(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+}
+
+// GetBanner GET route /v1/users/banner?userId
+func GetBanner(w http.ResponseWriter, r *http.Request) {
+	userID := r.URL.Query().Get("userId")
+	repository := repositoryFactoryUser.Build()
+	serviceBanner := userService.NewBanner(repository)
+
+	_, response, err := serviceBanner.Get(userID)
+
+	if err != nil {
+		http.Error(w, "Error banner "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }

@@ -11,10 +11,20 @@ type BannerService struct {
 	MetaData       *upload.MetaDataFile
 }
 
-func NewBanner(repository user.IUser, metaData *upload.MetaDataFile) *AvatarService {
-	return &AvatarService{
+type ResponseBanner struct {
+	Banner string
+}
+
+func NewBanner(repository user.IUser, metaData ...*upload.MetaDataFile) *BannerService {
+	var meta *upload.MetaDataFile
+
+	if metaData != nil {
+		meta = metaData[0]
+	}
+
+	return &BannerService{
 		repository,
-		metaData,
+		meta,
 	}
 }
 
@@ -33,4 +43,18 @@ func (s *BannerService) Upload(userID string) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func (s *BannerService) Get(userID string) (bool, ResponseBanner, error) {
+	currentUser, err := s.RepositoryUser.Find(userID)
+
+	if err != nil {
+		return false, ResponseBanner{}, errors.New("user not found")
+	}
+
+	response := ResponseBanner{
+		Banner: currentUser.Banner,
+	}
+
+	return true, response, nil
 }

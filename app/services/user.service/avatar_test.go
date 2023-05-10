@@ -9,7 +9,7 @@ import (
 
 var stubAvatar = stubFactoryUser.Build()
 
-var testCasesAvatarUser = []struct {
+var testCasesUploadAvatar = []struct {
 	name        string
 	userID      string
 	expected    bool
@@ -38,9 +38,44 @@ func TestUploadAvatar(t *testing.T) {
 		Size:      5120,
 	})
 
-	for _, tc := range testCasesAvatarUser {
+	for _, tc := range testCasesUploadAvatar {
 		t.Run(tc.name, func(t *testing.T) {
 			got, err := service.Upload(tc.userID)
+
+			if got != tc.expected {
+				t.Errorf("%s: %v", tc.description, err)
+			}
+		})
+	}
+}
+
+var testCasesGetAvatar = []struct {
+	name        string
+	userID      string
+	expected    bool
+	description string
+}{
+	{
+		name:        "user id",
+		userID:      "",
+		expected:    false,
+		description: "the user id is empty",
+	},
+	{
+		name:        "user id",
+		userID:      stubAvatar.User("created").ID.Hex(),
+		expected:    true,
+		description: "the avatar was obtained",
+	},
+}
+
+func TestGetAvatar(t *testing.T) {
+	mockFactory := repositoryFactoryUser.Build("test")
+	service := NewAvatar(mockFactory)
+
+	for _, tc := range testCasesGetAvatar {
+		t.Run(tc.name, func(t *testing.T) {
+			got, _, err := service.Get(tc.userID)
 
 			if got != tc.expected {
 				t.Errorf("%s: %v", tc.description, err)

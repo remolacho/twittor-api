@@ -1,6 +1,7 @@
 package user
 
 import (
+	"encoding/json"
 	"net/http"
 	"twittor-api/app/middleware"
 	userService "twittor-api/app/services/user.service"
@@ -36,4 +37,22 @@ func Avatar(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+}
+
+// GetAvatar GET route /v1/users/avatar?userId
+func GetAvatar(w http.ResponseWriter, r *http.Request) {
+	userID := r.URL.Query().Get("userId")
+	repository := repositoryFactoryUser.Build()
+	serviceAvatar := userService.NewAvatar(repository)
+
+	_, response, err := serviceAvatar.Get(userID)
+
+	if err != nil {
+		http.Error(w, "Error avatar "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }
