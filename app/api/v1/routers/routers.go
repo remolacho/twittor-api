@@ -14,6 +14,7 @@ func Handler() {
 
 	v1.UserRoutes(router)
 	v1.TweetRoutes(router)
+	v1.RelationRoutes(router)
 
 	port := os.Getenv("PORT")
 	corsAllowed := cors.AllowAll().Handler(router)
