@@ -1,8 +1,8 @@
-package relation_service
+package follow_service
 
 import (
 	"testing"
-	repositoryFactoryRelation "twittor-api/infraestructure/repositories/factories/repository.factory.relation"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
@@ -21,55 +21,55 @@ var testCasesRelationCreate = []struct {
 	description string
 }{
 	{
-		name: "the relation not found",
+		name: "the follow not found",
 		input: Input{
 			stubUserCreate.User("created").ID.Hex(),
 			"",
 		},
 		expected:    false,
-		description: "It relation was not possibility because user relation id was empty",
+		description: "It follow was not possibility because user follow id was empty",
 	},
 	{
-		name: "the relation not found",
+		name: "the follow not found",
 		input: Input{
 			stubUserCreate.User("created").ID.Hex(),
 			stubUserCreate.User("created").ID.Hex() + "1",
 		},
 		expected:    false,
-		description: "It relation was not possibility because user not exists",
+		description: "It follow was not possibility because user not exists",
 	},
 	{
-		name: "the relation not found",
+		name: "the follow not found",
 		input: Input{
 			stubUserCreate.User("created").ID.Hex(),
 			stubUserCreate.User("created").ID.Hex(),
 		},
 		expected:    false,
-		description: "It relation cannot create, follow yourself",
+		description: "It follow cannot create, follow yourself",
 	},
 	{
-		name: "the relation ready exists",
+		name: "the follow ready exists",
 		input: Input{
 			stubUserCreate.User("created").ID.Hex() + "1",
 			stubUserCreate.User("created").ID.Hex(),
 		},
 		expected:    false,
-		description: "It relation was not created",
+		description: "It follow was not created",
 	},
 	{
-		name: "the relation success",
+		name: "the follow success",
 		input: Input{
 			stubUserCreate.User("created").ID.Hex() + "2",
 			stubUserCreate.User("created").ID.Hex(),
 		},
 		expected:    true,
-		description: "It relation was created",
+		description: "It follow was created",
 	},
 }
 
 func TestCreate(t *testing.T) {
 	mockFactoryUser := repositoryFactoryUser.Build("test")
-	mockFactoryRelation := repositoryFactoryRelation.Build("test")
+	mockFactoryRelation := repositoryFactoryFollow.Build("test")
 
 	service := NewCreate(mockFactoryUser, mockFactoryRelation)
 

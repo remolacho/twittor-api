@@ -1,17 +1,17 @@
-package relations
+package followers
 
 import (
-	"twittor-api/domain/models/relation"
+	"twittor-api/domain/models/follow"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
 
-func (s *Stub) createRelation() *relation.Relation {
+func (s *Stub) createFollow() *follow.Follow {
 	var stubUserCreate = StubFactoryUser.Build()
 	user := stubUserCreate.User("created")
 
-	t := relation.New()
+	t := follow.New()
 	t.UserID = user.ID.Hex() + "1"
-	t.UserRelationID = user.ID.Hex()
+	t.FollowUserID = user.ID.Hex()
 
 	return t
 }

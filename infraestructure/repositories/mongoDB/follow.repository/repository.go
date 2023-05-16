@@ -1,4 +1,4 @@
-package relation_repository
+package follow_repository
 
 import (
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,6 +13,6 @@ func New() *RelationRepository {
 	database := mongoDB.CurrentSession().DataBase()
 
 	return &RelationRepository{
-		database.Collection("relations"),
+		database.Collection("followers"),
 	}
 }

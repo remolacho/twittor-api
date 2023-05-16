@@ -1,27 +1,27 @@
-package relation_service
+package follow_service
 
 import (
 	"errors"
-	"twittor-api/domain/models/relation"
+	"twittor-api/domain/models/follow"
 	"twittor-api/domain/models/user"
 )
 
 type RelationCreateService struct {
-	RepositoryRelation relation.IRelation
+	RepositoryRelation follow.IFollow
 	RepositoryUser     user.IUser
 }
 
-func NewCreate(repoUser user.IUser, repoRelation relation.IRelation) *RelationCreateService {
+func NewCreate(repoUser user.IUser, repoRelation follow.IFollow) *RelationCreateService {
 	return &RelationCreateService{
 		repoRelation,
 		repoUser,
 	}
 }
 
-func (s *RelationCreateService) Create(userID string, userRelationID string) (bool, error) {
-	t := relation.New()
+func (s *RelationCreateService) Create(userID string, followUserID string) (bool, error) {
+	t := follow.New()
 	t.UserID = userID
-	t.UserRelationID = userRelationID
+	t.FollowUserID = followUserID
 
 	if flag, err := t.UserRelationIsEmpty(); flag != true {
 		return flag, err
@@ -31,12 +31,12 @@ func (s *RelationCreateService) Create(userID string, userRelationID string) (bo
 		return flag, err
 	}
 
-	if _, err := s.RepositoryUser.Find(t.UserRelationID); err != nil {
+	if _, err := s.RepositoryUser.Find(t.FollowUserID); err != nil {
 		return false, err
 	}
 
 	if s.RepositoryRelation.FindByObject(t) {
-		return false, errors.New("the relation is duplicated")
+		return false, errors.New("the follow is duplicated")
 	}
 
 	_, flag, err := s.RepositoryRelation.Create(t)
