@@ -14,7 +14,7 @@ func (s *Stub) Follow(t string) *follow.Follow {
 	var r *follow.Follow
 
 	switch t {
-	case "createFollow":
+	case "created":
 		r = s.createFollow()
 		break
 	}

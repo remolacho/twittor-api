@@ -6,19 +6,19 @@ import (
 	"twittor-api/domain/models/user"
 )
 
-type RelationCreateService struct {
-	RepositoryRelation follow.IFollow
-	RepositoryUser     user.IUser
+type FollowCreateService struct {
+	RepositoryFollow follow.IFollow
+	RepositoryUser   user.IUser
 }
 
-func NewCreate(repoUser user.IUser, repoRelation follow.IFollow) *RelationCreateService {
-	return &RelationCreateService{
-		repoRelation,
+func NewCreate(repoUser user.IUser, repoFollow follow.IFollow) *FollowCreateService {
+	return &FollowCreateService{
+		repoFollow,
 		repoUser,
 	}
 }
 
-func (s *RelationCreateService) Create(userID string, followUserID string) (bool, error) {
+func (s *FollowCreateService) Create(userID string, followUserID string) (bool, error) {
 	t := follow.New()
 	t.UserID = userID
 	t.FollowUserID = followUserID
@@ -35,11 +35,11 @@ func (s *RelationCreateService) Create(userID string, followUserID string) (bool
 		return false, err
 	}
 
-	if s.RepositoryRelation.FindByObject(t) {
+	if s.RepositoryFollow.FindByObject(t) {
 		return false, errors.New("the follow is duplicated")
 	}
 
-	_, flag, err := s.RepositoryRelation.Create(t)
+	_, flag, err := s.RepositoryFollow.Create(t)
 
 	return flag, err
 }

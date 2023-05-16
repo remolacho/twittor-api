@@ -6,7 +6,7 @@ import (
 )
 
 type RelationRepository struct {
-	Relation *mongo.Collection
+	Follow *mongo.Collection
 }
 
 func New() *RelationRepository {

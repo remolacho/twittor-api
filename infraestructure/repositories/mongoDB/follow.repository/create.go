@@ -16,7 +16,7 @@ func (r *RelationRepository) Create(t *follow.Follow) (*follow.Follow, bool, err
 
 	t.ID = primitive.NewObjectID()
 
-	_, err := r.Relation.InsertOne(ctx, t)
+	_, err := r.Follow.InsertOne(ctx, t)
 
 	if err != nil {
 		flag = false
