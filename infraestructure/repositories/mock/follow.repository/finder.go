@@ -29,5 +29,12 @@ func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow
 }
 
 func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follow.Follow, error) {
-	return nil, nil
+	factory := factoryStubFollowers.Build()
+	relationObj := factory.Follow("created")
+
+	if userID != relationObj.UserID || followerID != relationObj.FollowUserID {
+		return nil, errors.New("the user not belongs to the relation")
+	}
+
+	return relationObj, nil
 }

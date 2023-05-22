@@ -45,5 +45,18 @@ func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow
 }
 
 func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follow.Follow, error) {
-	return nil, nil
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+
+	var f follow.Follow
+
+	filter := bson.M{"userid": userID, "followUserId": followerID}
+	err := r.Follow.FindOne(ctx, filter).Decode(&f)
+
+	defer cancel()
+
+	if err != nil {
+		return nil, errors.New("the user not belongs to the relation " + err.Error())
+	}
+
+	return &f, nil
 }
