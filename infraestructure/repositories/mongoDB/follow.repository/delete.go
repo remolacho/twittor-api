@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func (r *RelationRepository) DestroyAllowed(ID string, userID string) (bool, error) {
+func (r *FollowRepository) DestroyAllowed(ID string, userID string) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	defer cancel()

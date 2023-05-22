@@ -9,7 +9,7 @@ import (
 	"twittor-api/domain/models/follow"
 )
 
-func (r *RelationRepository) FindByObject(t *follow.Follow) bool {
+func (r *FollowRepository) FindByObject(t *follow.Follow) bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	var _follow follow.Follow
@@ -26,7 +26,7 @@ func (r *RelationRepository) FindByObject(t *follow.Follow) bool {
 	return true
 }
 
-func (r *RelationRepository) FindAllowed(ID string, userID string) (*follow.Follow, error) {
+func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	var f follow.Follow
@@ -42,4 +42,8 @@ func (r *RelationRepository) FindAllowed(ID string, userID string) (*follow.Foll
 	}
 
 	return &f, nil
+}
+
+func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follow.Follow, error) {
+	return nil, nil
 }

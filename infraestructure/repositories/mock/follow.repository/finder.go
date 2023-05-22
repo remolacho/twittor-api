@@ -27,3 +27,7 @@ func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow
 
 	return relationObj, nil
 }
+
+func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follow.Follow, error) {
+	return nil, nil
+}

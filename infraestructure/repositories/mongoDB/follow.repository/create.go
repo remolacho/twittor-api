@@ -7,7 +7,7 @@ import (
 	"twittor-api/domain/models/follow"
 )
 
-func (r *RelationRepository) Create(t *follow.Follow) (*follow.Follow, bool, error) {
+func (r *FollowRepository) Create(t *follow.Follow) (*follow.Follow, bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	flag := true
