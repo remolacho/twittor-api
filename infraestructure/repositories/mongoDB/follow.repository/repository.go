@@ -5,14 +5,14 @@ import (
 	"twittor-api/infraestructure/db/mongoDB"
 )
 
-type RelationRepository struct {
+type FollowRepository struct {
 	Follow *mongo.Collection
 }
 
-func New() *RelationRepository {
+func New() *FollowRepository {
 	database := mongoDB.CurrentSession().DataBase()
 
-	return &RelationRepository{
+	return &FollowRepository{
 		database.Collection("followers"),
 	}
 }

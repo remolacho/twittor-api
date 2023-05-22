@@ -9,7 +9,7 @@ import (
 	"twittor-api/domain/models/follow"
 )
 
-func (r *RelationRepository) FindByObject(t *follow.Follow) bool {
+func (r *FollowRepository) FindByObject(t *follow.Follow) bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	var _follow follow.Follow
@@ -26,13 +26,30 @@ func (r *RelationRepository) FindByObject(t *follow.Follow) bool {
 	return true
 }
 
-func (r *RelationRepository) FindAllowed(ID string, userID string) (*follow.Follow, error) {
+func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	var f follow.Follow
 
 	objectID, _ := primitive.ObjectIDFromHex(ID)
 	filter := bson.M{"_id": objectID, "userid": userID}
+	err := r.Follow.FindOne(ctx, filter).Decode(&f)
+
+	defer cancel()
+
+	if err != nil {
+		return nil, errors.New("the user not belongs to the relation " + err.Error())
+	}
+
+	return &f, nil
+}
+
+func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follow.Follow, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+
+	var f follow.Follow
+
+	filter := bson.M{"userid": userID, "followUserId": followerID}
 	err := r.Follow.FindOne(ctx, filter).Decode(&f)
 
 	defer cancel()
