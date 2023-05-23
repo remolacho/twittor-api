@@ -30,9 +30,9 @@ func (r *TweetRepository) optionsPage(page int64) *options.FindOptions {
 	skipTweets := (page - 1) * limit
 
 	opts := options.Find()
+	opts.SetSkip(skipTweets)
 	opts.SetLimit(limit)
 	opts.SetSort(bson.D{{Key: "createdAt", Value: -1}})
-	opts.SetSkip(skipTweets)
 	return opts
 }
 
