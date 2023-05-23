@@ -17,6 +17,9 @@ func (s *Stub) Follow(t string) *follow.Follow {
 	case "created":
 		r = s.createFollow()
 		break
+	case "createdII":
+		r = s.createFollowII()
+		break
 	}
 
 	return r

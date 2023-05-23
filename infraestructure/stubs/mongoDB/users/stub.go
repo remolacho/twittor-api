@@ -30,3 +30,7 @@ func (s *Stub) User(t string) *user.User {
 
 	return _user
 }
+
+func (s *Stub) Users() []user.User {
+	return s.list()
+}
