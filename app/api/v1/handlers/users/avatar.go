@@ -45,12 +45,7 @@ func GetAvatar(w http.ResponseWriter, r *http.Request) {
 	repository := repositoryFactoryUser.Build()
 	serviceAvatar := userService.NewAvatar(repository)
 
-	_, response, err := serviceAvatar.Get(userID)
-
-	if err != nil {
-		http.Error(w, "Error avatar "+err.Error(), http.StatusBadRequest)
-		return
-	}
+	response, _ := serviceAvatar.Get(userID)
 
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
