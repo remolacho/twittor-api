@@ -2,6 +2,7 @@ package user_service
 
 import (
 	"errors"
+	"os"
 	"twittor-api/domain/models/upload"
 	"twittor-api/domain/models/user"
 )
@@ -12,7 +13,9 @@ type BannerService struct {
 }
 
 type ResponseBanner struct {
-	Banner string
+	Banner    string `json:"banner"`
+	Alternate string `json:"alternate"`
+	HasBanner bool   `json:"hasBanner"`
 }
 
 func NewBanner(repository user.IUser, metaData ...*upload.MetaDataFile) *BannerService {
@@ -45,16 +48,20 @@ func (s *BannerService) Upload(userID string) (bool, error) {
 	return true, nil
 }
 
-func (s *BannerService) Get(userID string) (bool, ResponseBanner, error) {
+func (s *BannerService) Get(userID string) (ResponseBanner, error) {
 	currentUser, err := s.RepositoryUser.Find(userID)
 
+	var response = ResponseBanner{
+		Alternate: os.Getenv("BANNER_ALT"),
+		HasBanner: false,
+	}
+
 	if err != nil {
-		return false, ResponseBanner{}, errors.New("user not found")
+		return response, errors.New("user not found")
 	}
 
-	response := ResponseBanner{
-		Banner: currentUser.Banner,
-	}
+	response.Banner = currentUser.Banner
+	response.HasBanner = true
 
-	return true, response, nil
+	return response, nil
 }

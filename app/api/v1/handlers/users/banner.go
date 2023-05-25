@@ -45,12 +45,7 @@ func GetBanner(w http.ResponseWriter, r *http.Request) {
 	repository := repositoryFactoryUser.Build()
 	serviceBanner := userService.NewBanner(repository)
 
-	_, response, err := serviceBanner.Get(userID)
-
-	if err != nil {
-		http.Error(w, "Error banner "+err.Error(), http.StatusBadRequest)
-		return
-	}
+	response, _ := serviceBanner.Get(userID)
 
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
