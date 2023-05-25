@@ -7,8 +7,8 @@ import (
 	stubFactoryTweet "twittor-api/infraestructure/stubs/factories/factory.tweets"
 )
 
-func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.Follow, error) {
-	var followers []follow.Follow
+func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.HasOneTweet, error) {
+	var followers []follow.HasOneTweet
 
 	stub := stubFactoryFollower.Build()
 	stubTweet := stubFactoryTweet.Build()
@@ -19,8 +19,13 @@ func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.Fo
 		return followers, errors.New("the user not follow to tweet")
 	}
 
-	followStub.Tweet = tweetStub
+	followerTweet := follow.NewHaOneTweet()
 
-	followers = append(followers, *followStub)
+	followerTweet.ID = followStub.ID
+	followerTweet.UserID = followStub.UserID
+	followerTweet.FollowUserID = followStub.FollowUserID
+	followerTweet.Tweet = *tweetStub
+
+	followers = append(followers, *followerTweet)
 	return followers, nil
 }

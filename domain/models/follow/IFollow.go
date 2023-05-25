@@ -6,5 +6,5 @@ type IFollow interface {
 	FindAllowed(ID string, userID string) (*Follow, error)
 	DestroyAllowed(ID string, userID string) (bool, error)
 	FindByUserID(userID string, followerID string) (*Follow, error)
-	IncludeTweets(userID string, page int64) ([]Follow, error)
+	IncludeTweets(userID string, page int64) ([]HasOneTweet, error)
 }

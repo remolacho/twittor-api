@@ -12,7 +12,7 @@ func NewListTweets(repository follow.IFollow) *ListTweetsService {
 	}
 }
 
-func (s *ListTweetsService) ListTweets(userID string, page int64) ([]follow.Follow, bool, error) {
+func (s *ListTweetsService) ListTweets(userID string, page int64) ([]follow.HasOneTweet, bool, error) {
 	followers, err := s.Repository.IncludeTweets(userID, page)
 
 	if err != nil {

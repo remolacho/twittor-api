@@ -7,10 +7,10 @@ import (
 	"twittor-api/domain/models/follow"
 )
 
-func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.Follow, error) {
+func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.HasOneTweet, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
-	var followers []follow.Follow
+	var followers []follow.HasOneTweet
 
 	defer cancel()
 
@@ -40,12 +40,12 @@ func (r *FollowRepository) buildFilters(userID string, page int64) []bson.M {
 			"from":         "tweets",
 			"localField":   "followUserId",
 			"foreignField": "userid",
-			"as":           "tweets",
+			"as":           "tweet",
 		},
 	})
 
-	filters = append(filters, bson.M{"$unwind": "$tweets"})
-	filters = append(filters, bson.M{"$sort": bson.M{"createdAt": -1}})
+	filters = append(filters, bson.M{"$unwind": "$tweet"})
+	filters = append(filters, bson.M{"$sort": bson.M{"tweets.createdAt": -1}})
 	filters = append(filters, bson.M{"$skip": skipTweets})
 	filters = append(filters, bson.M{"$limit": limit})
 
