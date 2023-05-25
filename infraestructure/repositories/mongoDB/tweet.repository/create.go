@@ -14,7 +14,7 @@ func (r *TweetRepository) Create(t *tweet.Tweet) (*tweet.Tweet, error) {
 
 	defer cancel()
 
-	t.ID = primitive.NewObjectID()
+	t.ID = primitive.NewObjectID().Hex()
 	t.CreatedAt = time.Now()
 
 	_, err = r.Tweet.InsertOne(ctx, t)

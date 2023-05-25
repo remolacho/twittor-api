@@ -10,7 +10,7 @@ func (r *TweetRepository) FindByUser(ID string, userID string) (*tweet.Tweet, er
 	stub := stubFactoryTweet.Build()
 	t := stub.Tweet("createTweet")
 
-	if t.ID.Hex() != ID || t.UserID != userID {
+	if t.ID != ID || t.UserID != userID {
 		return nil, errors.New("the tweet not belong to user")
 	}
 

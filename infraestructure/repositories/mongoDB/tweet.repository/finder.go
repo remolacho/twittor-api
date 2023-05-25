@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 	"twittor-api/domain/models/tweet"
 )
@@ -14,8 +13,7 @@ func (r *TweetRepository) FindByUser(ID string, userID string) (*tweet.Tweet, er
 
 	var t tweet.Tweet
 
-	objectID, _ := primitive.ObjectIDFromHex(ID)
-	filter := bson.M{"_id": objectID, "userid": userID}
+	filter := bson.M{"_id": ID, "userid": userID}
 	err := r.Tweet.FindOne(ctx, filter).Decode(&t)
 
 	defer cancel()

@@ -30,6 +30,7 @@ func (s *Stub) createTweet() *tweet.Tweet {
 	t := tweet.New(s.currentUser().ID.Hex())
 	t.Message = "My tweet test"
 	t.CreatedAt = time.Now()
+	t.ID = "1"
 
 	return t
 }
