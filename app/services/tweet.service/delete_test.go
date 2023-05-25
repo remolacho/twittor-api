@@ -22,7 +22,7 @@ var testCasesDeleteTweetValidation = []struct {
 	{
 		name:        "the user isn't owner",
 		expected:    false,
-		input:       inputDelete{tweetID: stubDelete.Tweet("createTweet").ID.Hex(), userID: "999999999999999999"},
+		input:       inputDelete{tweetID: stubDelete.Tweet("createTweet").ID, userID: "999999999999999999"},
 		description: "this tweet not belong to user",
 	},
 	{
@@ -65,7 +65,7 @@ func TestDeleteSuccess(t *testing.T) {
 	}{
 		name:        "delete success",
 		expected:    true,
-		input:       inputDelete{tweetID: stubDelete.Tweet("createTweet").ID.Hex(), userID: stubDelete.Tweet("createTweet").UserID},
+		input:       inputDelete{tweetID: stubDelete.Tweet("createTweet").ID, userID: stubDelete.Tweet("createTweet").UserID},
 		description: "this tweet was deleted success",
 	}
 

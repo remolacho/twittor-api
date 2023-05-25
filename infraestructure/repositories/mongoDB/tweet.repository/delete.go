@@ -3,7 +3,6 @@ package tweet_repository
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
@@ -12,8 +11,7 @@ func (r *TweetRepository) Delete(ID string) (bool, error) {
 
 	defer cancel()
 
-	objectID, _ := primitive.ObjectIDFromHex(ID)
-	filter := bson.M{"_id": objectID}
+	filter := bson.M{"_id": ID}
 
 	_, err := r.Tweet.DeleteOne(ctx, filter)
 
