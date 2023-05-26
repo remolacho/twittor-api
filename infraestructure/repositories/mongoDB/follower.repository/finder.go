@@ -1,4 +1,4 @@
-package follow_repository
+package follower_repository
 
 import (
 	"context"
@@ -6,16 +6,16 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 )
 
-func (r *FollowRepository) FindByObject(t *follow.Follow) bool {
+func (r *FollowRepository) FindByObject(t *follower.Follower) bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
-	var _follow follow.Follow
+	var _follow follower.Follower
 
 	filter := bson.M{"userid": t.UserID, "followUserId": t.FollowUserID}
-	err := r.Follow.FindOne(ctx, filter).Decode(&_follow)
+	err := r.Follower.FindOne(ctx, filter).Decode(&_follow)
 
 	defer cancel()
 
@@ -26,14 +26,14 @@ func (r *FollowRepository) FindByObject(t *follow.Follow) bool {
 	return true
 }
 
-func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow, error) {
+func (r *FollowRepository) FindAllowed(ID string, userID string) (*follower.Follower, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
-	var f follow.Follow
+	var f follower.Follower
 
 	objectID, _ := primitive.ObjectIDFromHex(ID)
 	filter := bson.M{"_id": objectID, "userid": userID}
-	err := r.Follow.FindOne(ctx, filter).Decode(&f)
+	err := r.Follower.FindOne(ctx, filter).Decode(&f)
 
 	defer cancel()
 
@@ -44,13 +44,13 @@ func (r *FollowRepository) FindAllowed(ID string, userID string) (*follow.Follow
 	return &f, nil
 }
 
-func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follow.Follow, error) {
+func (r *FollowRepository) FindByUserID(userID string, followerID string) (*follower.Follower, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
-	var f follow.Follow
+	var f follower.Follower
 
 	filter := bson.M{"userid": userID, "followUserId": followerID}
-	err := r.Follow.FindOne(ctx, filter).Decode(&f)
+	err := r.Follower.FindOne(ctx, filter).Decode(&f)
 
 	defer cancel()
 

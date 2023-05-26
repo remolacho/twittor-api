@@ -5,7 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"time"
 	"twittor-api/domain/models/user"
-	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 )
 
 func (r *UserRepository) AllFollowed(ID string, page int64, searchTerm string) ([]user.User, error) {

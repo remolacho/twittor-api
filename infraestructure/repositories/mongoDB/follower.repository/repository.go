@@ -1,4 +1,4 @@
-package follow_repository
+package follower_repository
 
 import (
 	"go.mongodb.org/mongo-driver/mongo"
@@ -6,7 +6,7 @@ import (
 )
 
 type FollowRepository struct {
-	Follow *mongo.Collection
+	Follower *mongo.Collection
 }
 
 func New() *FollowRepository {

@@ -1,4 +1,4 @@
-package follow_repository
+package follower_repository
 
 import (
 	"context"
@@ -16,7 +16,7 @@ func (r *FollowRepository) DestroyAllowed(ID string, userID string) (bool, error
 		return false, err
 	}
 
-	_, err = r.Follow.DeleteOne(ctx, f)
+	_, err = r.Follower.DeleteOne(ctx, f)
 
 	if err != nil {
 		return false, err

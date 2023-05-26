@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 	"twittor-api/app/middleware"
-	followService "twittor-api/app/services/follow.service"
-	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
+	followService "twittor-api/app/services/follower.service"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 )
 
 // Tweets GET route  /v1/followers/tweets

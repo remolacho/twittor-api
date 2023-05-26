@@ -1,20 +1,20 @@
-package follow_repository
+package follower_repository
 
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 )
 
-func (r *FollowRepository) IncludeTweet(userID string, page int64) ([]follow.HasOneTweet, error) {
+func (r *FollowRepository) IncludeTweet(userID string, page int64) ([]follower.HasOneTweet, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
-	var followers []follow.HasOneTweet
+	var followers []follower.HasOneTweet
 
 	defer cancel()
 
-	cursor, err := r.Follow.Aggregate(ctx, r.buildFilters(userID, page))
+	cursor, err := r.Follower.Aggregate(ctx, r.buildFilters(userID, page))
 
 	if err != nil {
 		return followers, err

@@ -1,17 +1,17 @@
-package follow_service
+package follower_service
 
 import (
 	"errors"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 	"twittor-api/domain/models/user"
 )
 
 type FollowCreateService struct {
-	RepositoryFollow follow.IFollow
+	RepositoryFollow follower.IFollow
 	RepositoryUser   user.IUser
 }
 
-func NewCreate(repoUser user.IUser, repoFollow follow.IFollow) *FollowCreateService {
+func NewCreate(repoUser user.IUser, repoFollow follower.IFollow) *FollowCreateService {
 	return &FollowCreateService{
 		repoFollow,
 		repoUser,
@@ -19,7 +19,7 @@ func NewCreate(repoUser user.IUser, repoFollow follow.IFollow) *FollowCreateServ
 }
 
 func (s *FollowCreateService) Create(userID string, followUserID string) (bool, error) {
-	t := follow.New()
+	t := follower.New()
 	t.UserID = userID
 	t.FollowUserID = followUserID
 

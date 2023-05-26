@@ -1,8 +1,8 @@
-package follow_service
+package follower_service
 
 import (
 	"testing"
-	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 	stubFactoryFollower "twittor-api/infraestructure/stubs/factories/factory.followers"
 )
 
@@ -24,7 +24,7 @@ var testCasesFindFollower = []struct {
 		description: "It is not valid by the userID is empty",
 		input: InputFind{
 			UserID:     "",
-			FollowerID: stubFollowFind.Follow("created").FollowUserID,
+			FollowerID: stubFollowFind.Follower("created").FollowUserID,
 		},
 		expected: false,
 	},
@@ -32,7 +32,7 @@ var testCasesFindFollower = []struct {
 		name:        "the follower id empty",
 		description: "It is not valid by the followerID is empty",
 		input: InputFind{
-			UserID:     stubFollowFind.Follow("created").FollowUserID,
+			UserID:     stubFollowFind.Follower("created").FollowUserID,
 			FollowerID: "",
 		},
 		expected: false,
@@ -41,8 +41,8 @@ var testCasesFindFollower = []struct {
 		name:        "the follower not found userID",
 		description: "It is not valid by the userID",
 		input: InputFind{
-			UserID:     stubFollowFind.Follow("created").FollowUserID,
-			FollowerID: stubFollowFind.Follow("created").FollowUserID,
+			UserID:     stubFollowFind.Follower("created").FollowUserID,
+			FollowerID: stubFollowFind.Follower("created").FollowUserID,
 		},
 		expected: false,
 	},
@@ -50,8 +50,8 @@ var testCasesFindFollower = []struct {
 		name:        "the follower not found followerID",
 		description: "It is not valid by the followerID",
 		input: InputFind{
-			UserID:     stubFollowFind.Follow("created").UserID,
-			FollowerID: stubFollowFind.Follow("created").UserID,
+			UserID:     stubFollowFind.Follower("created").UserID,
+			FollowerID: stubFollowFind.Follower("created").UserID,
 		},
 		expected: false,
 	},
@@ -59,8 +59,8 @@ var testCasesFindFollower = []struct {
 		name:        "the follower success",
 		description: "It success",
 		input: InputFind{
-			UserID:     stubFollowFind.Follow("created").UserID,
-			FollowerID: stubFollowFind.Follow("created").FollowUserID,
+			UserID:     stubFollowFind.Follower("created").UserID,
+			FollowerID: stubFollowFind.Follower("created").FollowUserID,
 		},
 		expected: true,
 	},

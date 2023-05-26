@@ -1,25 +1,25 @@
-package follow_repository
+package follower_repository
 
 import (
 	"errors"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 	stubFactoryFollower "twittor-api/infraestructure/stubs/factories/factory.followers"
 	stubFactoryTweet "twittor-api/infraestructure/stubs/factories/factory.tweets"
 )
 
-func (r *FollowRepository) IncludeTweet(userID string, page int64) ([]follow.HasOneTweet, error) {
-	var followers []follow.HasOneTweet
+func (r *FollowRepository) IncludeTweet(userID string, page int64) ([]follower.HasOneTweet, error) {
+	var followers []follower.HasOneTweet
 
 	stub := stubFactoryFollower.Build()
 	stubTweet := stubFactoryTweet.Build()
-	followStub := stub.Follow("created")
+	followStub := stub.Follower("created")
 	tweetStub := stubTweet.Tweet("createTweet")
 
 	if userID != followStub.UserID {
 		return followers, errors.New("the user not follow to tweet")
 	}
 
-	followerTweet := follow.NewHaOneTweet()
+	followerTweet := follower.NewHaOneTweet()
 
 	followerTweet.ID = followStub.ID
 	followerTweet.UserID = followStub.UserID
