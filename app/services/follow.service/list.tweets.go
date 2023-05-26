@@ -13,7 +13,7 @@ func NewListTweets(repository follow.IFollow) *ListTweetsService {
 }
 
 func (s *ListTweetsService) ListTweets(userID string, page int64) ([]follow.HasOneTweet, bool, error) {
-	followers, err := s.Repository.IncludeTweets(userID, page)
+	followers, err := s.Repository.IncludeTweet(userID, page)
 
 	if err != nil {
 		return followers, false, err

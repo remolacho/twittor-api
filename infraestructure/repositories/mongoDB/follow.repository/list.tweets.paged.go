@@ -7,7 +7,7 @@ import (
 	"twittor-api/domain/models/follow"
 )
 
-func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.HasOneTweet, error) {
+func (r *FollowRepository) IncludeTweet(userID string, page int64) ([]follow.HasOneTweet, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	var followers []follow.HasOneTweet

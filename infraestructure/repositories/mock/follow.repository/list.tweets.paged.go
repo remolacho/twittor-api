@@ -7,7 +7,7 @@ import (
 	stubFactoryTweet "twittor-api/infraestructure/stubs/factories/factory.tweets"
 )
 
-func (r *FollowRepository) IncludeTweets(userID string, page int64) ([]follow.HasOneTweet, error) {
+func (r *FollowRepository) IncludeTweet(userID string, page int64) ([]follow.HasOneTweet, error) {
 	var followers []follow.HasOneTweet
 
 	stub := stubFactoryFollower.Build()
