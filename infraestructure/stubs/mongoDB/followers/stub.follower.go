@@ -2,15 +2,15 @@ package followers
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
 
-func (s *Stub) createFollow() *follow.Follow {
+func (s *Stub) createFollower() *follower.Follower {
 	var stubUserCreate = StubFactoryUser.Build()
 	user := stubUserCreate.User("created")
 
-	t := follow.New()
+	t := follower.New()
 	t.ID = s.getID()
 	t.UserID = user.ID.Hex() + "1"
 	t.FollowUserID = user.ID.Hex()
@@ -18,11 +18,11 @@ func (s *Stub) createFollow() *follow.Follow {
 	return t
 }
 
-func (s *Stub) createFollowII() *follow.Follow {
+func (s *Stub) createFollowerII() *follower.Follower {
 	var stubUserCreate = StubFactoryUser.Build()
 	user := stubUserCreate.User("created")
 
-	t := follow.New()
+	t := follower.New()
 	t.ID = s.getID()
 	t.UserID = user.ID.Hex()
 	t.FollowUserID = user.ID.Hex() + "1"

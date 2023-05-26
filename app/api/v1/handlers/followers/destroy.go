@@ -3,8 +3,8 @@ package followers
 import (
 	"net/http"
 	"twittor-api/app/middleware"
-	followService "twittor-api/app/services/follow.service"
-	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
+	followService "twittor-api/app/services/follower.service"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 )
 
 // Destroy DELETE route /v1/followers

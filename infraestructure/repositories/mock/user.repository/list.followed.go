@@ -12,7 +12,7 @@ func (r *UserRepository) AllFollowed(ID string, page int64, searchTerm string) (
 	factoryF := factoryStubFollowers.Build()
 	factory := factoryStubUsers.Build()
 	cursor := factory.Users()
-	follower := factoryF.Follow("created")
+	follower := factoryF.Follower("created")
 
 	for _, c := range cursor {
 		if ID == follower.UserID && follower.FollowUserID == c.ID.Hex() {

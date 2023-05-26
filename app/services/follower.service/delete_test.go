@@ -1,8 +1,8 @@
-package follow_service
+package follower_service
 
 import (
 	"testing"
-	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 	stubFactoryFollower "twittor-api/infraestructure/stubs/factories/factory.followers"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
@@ -33,7 +33,7 @@ var testCasesRelationDelete = []struct {
 	{
 		name: "belongs to the user",
 		input: InputDestroy{
-			stubFollowDelete.Follow("created").ID.Hex(),
+			stubFollowDelete.Follower("created").ID.Hex(),
 			stubUserDelete.User("created").ID.Hex(),
 		},
 		expected:    false,
@@ -42,7 +42,7 @@ var testCasesRelationDelete = []struct {
 	{
 		name: "delete follow",
 		input: InputDestroy{
-			stubFollowDelete.Follow("created").ID.Hex(),
+			stubFollowDelete.Follower("created").ID.Hex(),
 			stubUserDelete.User("created").ID.Hex() + "1",
 		},
 		expected:    true,

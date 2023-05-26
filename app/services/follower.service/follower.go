@@ -1,19 +1,19 @@
-package follow_service
+package follower_service
 
 import (
 	"errors"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 )
 
 type FindFollowerService struct {
-	RepositoryRelation follow.IFollow
+	RepositoryRelation follower.IFollow
 }
 
 type ResponseFollower struct {
 	Followed bool
 }
 
-func NewFollower(repository follow.IFollow) *FindFollowerService {
+func NewFollower(repository follower.IFollow) *FindFollowerService {
 	return &FindFollowerService{
 		repository,
 	}

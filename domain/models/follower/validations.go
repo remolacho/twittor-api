@@ -1,8 +1,8 @@
-package follow
+package follower
 
 import "errors"
 
-func (e *Follow) UserRelationIsEmpty() (bool, error) {
+func (e *Follower) UserRelationIsEmpty() (bool, error) {
 	if len(e.FollowUserID) == 0 {
 		return false, errors.New("the user id params is empty")
 	}
@@ -10,7 +10,7 @@ func (e *Follow) UserRelationIsEmpty() (bool, error) {
 	return true, nil
 }
 
-func (e *Follow) UsersEquals() (bool, error) {
+func (e *Follower) UsersEquals() (bool, error) {
 	if e.UserID == e.FollowUserID {
 		return false, errors.New("the user cannot follow yourself")
 	}

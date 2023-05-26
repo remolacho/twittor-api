@@ -1,8 +1,8 @@
-package follow_service
+package follower_service
 
 import (
 	"testing"
-	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follow"
+	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )

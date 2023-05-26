@@ -5,7 +5,7 @@ import (
 	stubRelationMongo "twittor-api/infraestructure/stubs/mongoDB/followers"
 )
 
-func Build(opts ...string) stubs.IStubFollow {
+func Build(opts ...string) stubs.IStubFollower {
 	if opts == nil {
 		return stubRelationMongo.New()
 	}

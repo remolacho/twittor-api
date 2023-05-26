@@ -1,4 +1,4 @@
-package follow_repository
+package follower_repository
 
 type FollowRepository struct{}
 

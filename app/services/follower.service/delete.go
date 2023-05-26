@@ -1,15 +1,15 @@
-package follow_service
+package follower_service
 
 import (
 	"errors"
-	"twittor-api/domain/models/follow"
+	"twittor-api/domain/models/follower"
 )
 
 type FollowDeleteService struct {
-	RepositoryRelation follow.IFollow
+	RepositoryRelation follower.IFollow
 }
 
-func NewDelete(repoFollow follow.IFollow) *FollowDeleteService {
+func NewDelete(repoFollow follower.IFollow) *FollowDeleteService {
 	return &FollowDeleteService{
 		repoFollow,
 	}
