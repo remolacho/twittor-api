@@ -9,7 +9,7 @@ import (
 
 func main() {
 	if err := environment.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env upload")
 	}
 
 	if mongoDB.CurrentSession().Check() == 0 {

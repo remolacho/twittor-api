@@ -49,9 +49,8 @@ func TestCreate(t *testing.T) {
 
 	for _, tc := range testCasesCreateUser {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-
 			_, err := service.Create(tc.input)
+
 			if reflect.TypeOf(tc.errorExpected) != reflect.TypeOf(err) {
 				t.Errorf("%s: %v", tc.description, err)
 			}

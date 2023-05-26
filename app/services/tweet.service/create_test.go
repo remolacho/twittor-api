@@ -40,8 +40,6 @@ func TestCreateError(t *testing.T) {
 
 	for _, tc := range testCasesCreateTweetValidation {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-
 			_, err := service.Create(tc.input)
 			if err == nil {
 				t.Errorf("%s", tc.description)

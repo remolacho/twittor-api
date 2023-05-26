@@ -16,6 +16,12 @@ func NewProfile(repository user.IUser) *UserProfileService {
 
 func (s *UserProfileService) Get(ID string) (*user.User, error) {
 	u, err := s.RepositoryUser.Find(ID)
+
+	if err != nil {
+		return nil, err
+	}
+
 	u.Password = ""
-	return u, err
+
+	return u, nil
 }

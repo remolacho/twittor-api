@@ -35,7 +35,6 @@ func TestEncode(t *testing.T) {
 
 	for _, tc := range testCasesEncode {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 			_, err := service.Encode(tc.input)
 
 			if reflect.TypeOf(tc.expectedError) != reflect.TypeOf(err) {
@@ -73,7 +72,6 @@ func TestDecode(t *testing.T) {
 
 	for _, tc := range testCasesDecode {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 			token, _ := service.Encode(tc.user)
 
 			var jwt string

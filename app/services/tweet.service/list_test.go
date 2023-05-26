@@ -37,8 +37,6 @@ func TestAllByPagedUserError(t *testing.T) {
 
 	for _, tc := range testCasesListTweetsValidation {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-
 			_, err := service.AllByPagedUser(tc.input.userID, tc.input.page)
 
 			if err == nil {
@@ -64,8 +62,6 @@ func TestAllByPagedUserSuccess(t *testing.T) {
 	}
 
 	t.Run(testCase.name, func(t *testing.T) {
-		t.Parallel()
-
 		_, err := service.AllByPagedUser(testCase.input.userID, testCase.input.page)
 
 		if err != nil {
