@@ -3,6 +3,7 @@ package user
 import (
 	"encoding/json"
 	"net/http"
+	responseService "twittor-api/app/services/response.service"
 	userService "twittor-api/app/services/user.service"
 	"twittor-api/domain/models/user"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
@@ -20,12 +21,15 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 	repositoryUser := repositoryFactoryUser.Build()
 	service := userService.NewUser(repositoryUser)
-	_, errService := service.Create(u)
+	_, err = service.Create(u)
 
-	if errService != nil {
-		http.Error(w, errService.Error(), 400)
+	w.Header().Set("content-type", "application/json")
+
+	if err != nil {
+		http.Error(w, err.Error(), 400)
 		return
 	}
 
+	json.NewEncoder(w).Encode(responseService.Call(true, "", nil))
 	w.WriteHeader(http.StatusCreated)
 }
