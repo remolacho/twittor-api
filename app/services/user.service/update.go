@@ -22,10 +22,6 @@ func (s *UserUpdateService) Update(ID string, u *user.User) (*user.User, error) 
 		return nil, errors.New("user not found")
 	}
 
-	if !u.EmailPresent() {
-		return u, errors.New("error to create user, email is empty")
-	}
-
 	u.ID = currentUser.ID
 	u.Password = currentUser.Password
 

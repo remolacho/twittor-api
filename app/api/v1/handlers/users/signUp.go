@@ -23,13 +23,12 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	service := userService.NewUser(repositoryUser)
 	_, err = service.Create(u)
 
-	w.Header().Set("content-type", "application/json")
-
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
 	}
 
+	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(responseService.Call(true, "", nil))
 	w.WriteHeader(http.StatusCreated)
 }
