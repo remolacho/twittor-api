@@ -75,10 +75,10 @@ func TestGetAvatar(t *testing.T) {
 
 	for _, tc := range testCasesGetAvatar {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := service.Get(tc.userID)
+			_, got := service.Get(tc.userID)
 
-			if got.HasAvatar != tc.expected {
-				t.Errorf("%s: %v", tc.description, err)
+			if got != tc.expected {
+				t.Errorf("%s: ", tc.description)
 			}
 		})
 	}

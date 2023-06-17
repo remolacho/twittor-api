@@ -2,20 +2,14 @@ package user_service
 
 import (
 	"errors"
-	"os"
 	"twittor-api/domain/models/upload"
 	"twittor-api/domain/models/user"
+	"twittor-api/infraestructure/shared"
 )
 
 type BannerService struct {
 	RepositoryUser user.IUser
 	MetaData       *upload.MetaDataFile
-}
-
-type ResponseBanner struct {
-	Banner    string `json:"banner"`
-	Alternate string `json:"alternate"`
-	HasBanner bool   `json:"hasBanner"`
 }
 
 func NewBanner(repository user.IUser, metaData ...*upload.MetaDataFile) *BannerService {
@@ -48,20 +42,17 @@ func (s *BannerService) Upload(userID string) (bool, error) {
 	return true, nil
 }
 
-func (s *BannerService) Get(userID string) (ResponseBanner, error) {
+func (s *BannerService) Get(userID string) (string, bool) {
+	rootPath := shared.GetFilesRootPath()
 	currentUser, err := s.RepositoryUser.Find(userID)
 
-	var response = ResponseBanner{
-		Alternate: os.Getenv("BANNER_ALT"),
-		HasBanner: false,
-	}
-
 	if err != nil {
-		return response, errors.New("user not found")
+		return "", false
 	}
 
-	response.Banner = currentUser.Banner
-	response.HasBanner = true
+	if len(currentUser.Banner) == 0 {
+		return rootPath + "/banner.png", true
+	}
 
-	return response, nil
+	return rootPath + "/banners/" + currentUser.Banner, true
 }

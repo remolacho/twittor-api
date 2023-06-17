@@ -32,6 +32,6 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("content-type", "application/json")
-	json.NewEncoder(w).Encode(responseService.Call(true, "", nil))
 	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(responseService.Call(true, "", nil))
 }
