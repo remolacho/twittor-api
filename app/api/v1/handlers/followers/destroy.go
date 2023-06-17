@@ -12,12 +12,12 @@ import (
 // Destroy DELETE route /v1/followers
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	claim, _ := middleware.AuthClaim(r)
-	followID := r.URL.Query().Get("followId")
+	followUserID := r.URL.Query().Get("followUserId")
 
 	repoRel := repositoryFactoryFollow.Build()
 	service := followService.NewDelete(repoRel)
 
-	_, err := service.Destroy(followID, claim.ID.Hex())
+	_, err := service.Destroy(claim.ID.Hex(), followUserID)
 
 	if err != nil {
 		http.Error(w, "error to delete follow "+err.Error(), 404)

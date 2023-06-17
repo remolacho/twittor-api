@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-func (r *FollowRepository) DestroyAllowed(ID string, userID string) (bool, error) {
+func (r *FollowRepository) DestroyAllowed(userID string, followUserID string) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
 	defer cancel()
 
-	f, err := r.FindAllowed(ID, userID)
+	f, err := r.FindByUserID(userID, followUserID)
 
 	if err != nil {
 		return false, err

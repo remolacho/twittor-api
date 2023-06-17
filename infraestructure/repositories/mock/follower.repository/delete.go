@@ -1,7 +1,7 @@
 package follower_repository
 
-func (r *FollowRepository) DestroyAllowed(ID string, userID string) (bool, error) {
-	_, err := r.FindAllowed(ID, userID)
+func (r *FollowRepository) DestroyAllowed(userID string, followUserID string) (bool, error) {
+	_, err := r.FindByUserID(userID, followUserID)
 
 	if err != nil {
 		return false, err

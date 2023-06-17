@@ -15,10 +15,10 @@ func NewDelete(repoFollow follower.IFollow) *FollowDeleteService {
 	}
 }
 
-func (s *FollowDeleteService) Destroy(followID string, userID string) (bool, error) {
-	if len(followID) == 0 {
+func (s *FollowDeleteService) Destroy(userID string, followUserID string) (bool, error) {
+	if len(followUserID) == 0 {
 		return false, errors.New("the follow was not deleted")
 	}
 
-	return s.RepositoryRelation.DestroyAllowed(followID, userID)
+	return s.RepositoryRelation.DestroyAllowed(userID, followUserID)
 }

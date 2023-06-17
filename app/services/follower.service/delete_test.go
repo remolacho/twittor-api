@@ -3,16 +3,14 @@ package follower_service
 import (
 	"testing"
 	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
-	stubFactoryFollower "twittor-api/infraestructure/stubs/factories/factory.followers"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
 
 var stubUserDelete = StubFactoryUser.Build()
-var stubFollowDelete = stubFactoryFollower.Build()
 
 type InputDestroy struct {
-	FollowID string
-	UserID   string
+	FollowUserId string
+	UserID       string
 }
 
 var testCasesRelationDelete = []struct {
@@ -33,8 +31,8 @@ var testCasesRelationDelete = []struct {
 	{
 		name: "belongs to the user",
 		input: InputDestroy{
-			stubFollowDelete.Follower("created").ID.Hex(),
 			stubUserDelete.User("created").ID.Hex(),
+			stubUserDelete.User("other").ID.Hex(),
 		},
 		expected:    false,
 		description: "It is not belongs to user",
@@ -42,7 +40,7 @@ var testCasesRelationDelete = []struct {
 	{
 		name: "delete follow",
 		input: InputDestroy{
-			stubFollowDelete.Follower("created").ID.Hex(),
+			stubUserDelete.User("created").ID.Hex(),
 			stubUserDelete.User("created").ID.Hex() + "1",
 		},
 		expected:    true,
@@ -57,7 +55,7 @@ func TestDestroy(t *testing.T) {
 
 	for _, tc := range testCasesRelationDelete {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := service.Destroy(tc.input.FollowID, tc.input.UserID)
+			got, err := service.Destroy(tc.input.UserID, tc.input.FollowUserId)
 			if got != tc.expected {
 				t.Errorf("%s: %v", tc.description, err)
 			}
