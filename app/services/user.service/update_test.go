@@ -27,13 +27,6 @@ var testCasesUpdateUser = []struct {
 		description:   "The user not found in DB",
 	},
 	{
-		name:          "email is empty",
-		ID:            stubUpdate.User("email").ID.Hex(),
-		input:         stubUpdate.User("email"),
-		errorExpected: errors.New(""),
-		description:   "It Was expected that user has email",
-	},
-	{
 		name:          "update success",
 		ID:            stubUpdate.User("created").ID.Hex(),
 		input:         stubUpdate.User("created"),

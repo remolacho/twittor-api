@@ -41,5 +41,7 @@ func (s *UserLoginService) Login(email, password string) (ResponseJwt, bool) {
 		return response, false
 	}
 
+	response.Token = "Bearer " + response.Token
+
 	return response, true
 }

@@ -16,7 +16,7 @@ type User struct {
 	Banner    string             `bson:"banner" json:"banner,omitempty"`
 	Biography string             `bson:"biography" json:"biography,omitempty"`
 	Location  string             `bson:"location" json:"location,omitempty"`
-	SiteWeb   string             `bson:"site_web" json:"sideWeb,omitempty"`
+	SideWeb   string             `bson:"side_web" json:"sideWeb,omitempty"`
 }
 
 func New() *User {

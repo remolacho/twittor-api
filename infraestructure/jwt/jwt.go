@@ -65,7 +65,7 @@ func payload(u user.User) jwt.MapClaims {
 		"name":      u.Name,
 		"lastname":  u.LastName,
 		"biography": u.Biography,
-		"site":      u.SiteWeb,
+		"sideWeb":   u.SideWeb,
 		"location":  u.Location,
 		"_id":       u.ID.Hex(),
 		"exp":       time.Now().Add(time.Hour * 24).Unix(),

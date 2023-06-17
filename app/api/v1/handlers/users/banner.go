@@ -1,7 +1,6 @@
 package user
 
 import (
-	"encoding/json"
 	"net/http"
 	"twittor-api/app/middleware"
 	userService "twittor-api/app/services/user.service"
@@ -45,9 +44,13 @@ func GetBanner(w http.ResponseWriter, r *http.Request) {
 	repository := repositoryFactoryUser.Build()
 	serviceBanner := userService.NewBanner(repository)
 
-	response, _ := serviceBanner.Get(userID)
+	response, hasBanner := serviceBanner.Get(userID)
 
-	w.Header().Set("content-type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(response)
+	if !hasBanner {
+		http.Error(w, "The user not found", http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "image/*")
+	http.ServeFile(w, r, response)
 }

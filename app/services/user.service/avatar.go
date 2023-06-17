@@ -2,20 +2,14 @@ package user_service
 
 import (
 	"errors"
-	"os"
 	"twittor-api/domain/models/upload"
 	"twittor-api/domain/models/user"
+	"twittor-api/infraestructure/shared"
 )
 
 type AvatarService struct {
 	RepositoryUser user.IUser
 	MetaData       *upload.MetaDataFile
-}
-
-type ResponseAvatar struct {
-	Avatar    string `json:"avatar"`
-	Alternate string `json:"alternate"`
-	HasAvatar bool   `json:"hasAvatar"`
 }
 
 func NewAvatar(repository user.IUser, metaData ...*upload.MetaDataFile) *AvatarService {
@@ -48,20 +42,17 @@ func (s *AvatarService) Upload(userID string) (bool, error) {
 	return true, nil
 }
 
-func (s *AvatarService) Get(userID string) (ResponseAvatar, error) {
+func (s *AvatarService) Get(userID string) (string, bool) {
+	rootPath := shared.GetFilesRootPath()
 	currentUser, err := s.RepositoryUser.Find(userID)
 
-	var response = ResponseAvatar{
-		Alternate: os.Getenv("AVATAR_ALT"),
-		HasAvatar: false,
-	}
-
 	if err != nil {
-		return response, errors.New("user not found")
+		return "", false
 	}
 
-	response.Avatar = currentUser.Avatar
-	response.HasAvatar = true
+	if len(currentUser.Avatar) == 0 {
+		return rootPath + "/avatar.jpeg", true
+	}
 
-	return response, nil
+	return rootPath + "/avatars/" + currentUser.Avatar, true
 }

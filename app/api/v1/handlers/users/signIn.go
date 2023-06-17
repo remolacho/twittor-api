@@ -3,6 +3,7 @@ package user
 import (
 	"encoding/json"
 	"net/http"
+	responseService "twittor-api/app/services/response.service"
 	userService "twittor-api/app/services/user.service"
 	"twittor-api/domain/models/user"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
@@ -31,5 +32,5 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(responseService.Call(true, "", response))
 }

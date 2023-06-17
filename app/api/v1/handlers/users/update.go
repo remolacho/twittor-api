@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"twittor-api/app/middleware"
+	responseService "twittor-api/app/services/response.service"
 	userService "twittor-api/app/services/user.service"
 	"twittor-api/domain/models/user"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
@@ -30,5 +31,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(responseService.Call(true, "", nil))
 }
