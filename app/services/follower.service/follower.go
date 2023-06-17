@@ -10,7 +10,7 @@ type FindFollowerService struct {
 }
 
 type ResponseFollower struct {
-	Followed bool
+	Followed bool `json:"followed"`
 }
 
 func NewFollower(repository follower.IFollow) *FindFollowerService {

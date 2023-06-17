@@ -1,9 +1,11 @@
 package followers
 
 import (
+	"encoding/json"
 	"net/http"
 	"twittor-api/app/middleware"
 	followService "twittor-api/app/services/follower.service"
+	responseService "twittor-api/app/services/response.service"
 	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
 )
 
@@ -22,5 +24,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(responseService.Call(true, "", nil))
 }

@@ -23,7 +23,8 @@ func Tweets(w http.ResponseWriter, r *http.Request) {
 	response, _, errList := service.ListTweets(claim.ID.Hex(), page)
 
 	if errList != nil {
-		http.Error(w, "the liat tweets error:  "+errList.Error(), http.StatusNotFound)
+		http.Error(w, "the list tweets error:  "+errList.Error(), http.StatusNotFound)
+		return
 	}
 
 	w.Header().Set("content-type", "application/json")
