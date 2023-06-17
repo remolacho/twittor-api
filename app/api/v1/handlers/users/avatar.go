@@ -1,10 +1,8 @@
 package user
 
 import (
-	"encoding/json"
 	"net/http"
 	"twittor-api/app/middleware"
-	responseService "twittor-api/app/services/response.service"
 	userService "twittor-api/app/services/user.service"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 	uploadFile "twittor-api/infraestructure/upload.file"
@@ -46,9 +44,13 @@ func GetAvatar(w http.ResponseWriter, r *http.Request) {
 	repository := repositoryFactoryUser.Build()
 	serviceAvatar := userService.NewAvatar(repository)
 
-	response, _ := serviceAvatar.Get(userID)
+	response, hasAvatar := serviceAvatar.Get(userID)
 
-	w.Header().Set("content-type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(responseService.Call(true, "", response))
+	if !hasAvatar {
+		http.Error(w, "The user not found", http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "image/*")
+	http.ServeFile(w, r, response)
 }

@@ -75,10 +75,10 @@ func TestGetBanner(t *testing.T) {
 
 	for _, tc := range testCasesGetBanner {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := service.Get(tc.userID)
+			_, got := service.Get(tc.userID)
 
-			if got.HasBanner != tc.expected {
-				t.Errorf("%s: %v", tc.description, err)
+			if got != tc.expected {
+				t.Errorf("%s: ", tc.description)
 			}
 		})
 	}

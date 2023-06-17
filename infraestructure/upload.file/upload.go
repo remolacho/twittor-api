@@ -2,8 +2,8 @@ package upload_file
 
 import (
 	"mime/multipart"
-	"path/filepath"
 	"twittor-api/domain/models/upload"
+	"twittor-api/infraestructure/shared"
 )
 
 type Upload struct {
@@ -18,7 +18,7 @@ func New(file multipart.File, handler *multipart.FileHeader, token string) *Uplo
 		file,
 		handler,
 		token,
-		getRootPath(),
+		shared.GetFilesRootPath(),
 	}
 }
 
@@ -42,16 +42,4 @@ func (s *Upload) Call(folder string) (*upload.MetaDataFile, error) {
 	}
 
 	return metadata, nil
-}
-
-func getRootPath() string {
-	folderPath := "../twittor-api/uploads/"
-
-	pathRoot, err := filepath.Abs(folderPath)
-
-	if err != nil {
-		return ""
-	}
-
-	return pathRoot
 }

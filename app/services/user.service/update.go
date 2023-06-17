@@ -24,6 +24,9 @@ func (s *UserUpdateService) Update(ID string, u *user.User) (*user.User, error) 
 
 	u.ID = currentUser.ID
 	u.Password = currentUser.Password
+	u.Email = currentUser.Email
+	u.Avatar = currentUser.Avatar
+	u.Banner = currentUser.Banner
 
 	return s.RepositoryUser.Update(u)
 }
