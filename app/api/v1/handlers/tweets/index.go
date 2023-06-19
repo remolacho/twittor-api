@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	responseService "twittor-api/app/services/response.service"
 	tweetService "twittor-api/app/services/tweet.service"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
 )
@@ -15,6 +16,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, "the param page error:  "+err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	repository := repositoryFactoryTweet.Build()
@@ -23,10 +25,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	if errTweets != nil {
 		http.Error(w, errTweets.Error(), http.StatusNotFound)
+		return
 	}
 
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
-
-	json.NewEncoder(w).Encode(&tweets)
+	json.NewEncoder(w).Encode(responseService.Call(true, "", &tweets))
 }
