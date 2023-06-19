@@ -26,6 +26,15 @@ func (s *Stub) messageEmpty() *tweet.Tweet {
 	return t
 }
 
+func (s *Stub) messageLimit() *tweet.Tweet {
+	t := tweet.New(s.currentUser().ID.Hex())
+	t.Message = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años."
+	t.CreatedAt = time.Now()
+	t.ID = "1"
+
+	return t
+}
+
 func (s *Stub) createTweet() *tweet.Tweet {
 	t := tweet.New(s.currentUser().ID.Hex())
 	t.Message = "My tweet test"

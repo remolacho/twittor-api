@@ -43,7 +43,6 @@ func (r *UserRepository) searchQuery(searchTerm string) bson.M {
 
 func (r *UserRepository) clearData(u user.User) user.User {
 	u.Password = ""
-	u.Biography = ""
 	u.Banner = ""
 	u.SideWeb = ""
 	u.Email = ""

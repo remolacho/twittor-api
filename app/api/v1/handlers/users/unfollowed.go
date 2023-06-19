@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"twittor-api/app/middleware"
+	responseService "twittor-api/app/services/response.service"
 	usersService "twittor-api/app/services/users.service"
 	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 )
@@ -31,5 +32,5 @@ func UnFollowed(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(users)
+	json.NewEncoder(w).Encode(responseService.Call(true, "", users))
 }
