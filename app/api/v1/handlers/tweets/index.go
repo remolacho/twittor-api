@@ -7,6 +7,7 @@ import (
 	responseService "twittor-api/app/services/response.service"
 	tweetService "twittor-api/app/services/tweet.service"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
+	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 )
 
 // Index Get route /v1/tweets?userId=&page=1
@@ -19,8 +20,9 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	repository := repositoryFactoryTweet.Build()
-	service := tweetService.NewList(repository)
+	repositoryTweet := repositoryFactoryTweet.Build()
+	repositoryUser := repositoryFactoryUser.Build()
+	service := tweetService.NewList(repositoryTweet, repositoryUser)
 	tweets, errTweets := service.AllByPagedUser(userID, page)
 
 	if errTweets != nil {

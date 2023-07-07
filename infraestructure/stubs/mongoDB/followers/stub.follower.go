@@ -31,6 +31,6 @@ func (s *Stub) createFollowerII() *follower.Follower {
 }
 
 func (s *Stub) getID() primitive.ObjectID {
-	objectID, _ := primitive.ObjectIDFromHex("0000000000000000000000")
+	objectID, _ := primitive.ObjectIDFromHex("5c71f03ccfee587e4212ad90")
 	return objectID
 }

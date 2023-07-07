@@ -3,6 +3,7 @@ package tweet_service
 import (
 	"testing"
 	repositoryFactoryTweet "twittor-api/infraestructure/repositories/factories/repository.factory.tweet"
+	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 	StubFactoryUser "twittor-api/infraestructure/stubs/factories/factory.users"
 )
 
@@ -19,21 +20,21 @@ var testCasesListTweetsValidation = []struct {
 	description string
 }{
 	{
-		name:        "list empty",
-		input:       input{userID: "999999999999999999", page: 1},
-		description: "the list is empty, the user not found tweets",
-	},
-	{
 		name:        "userID is empty",
 		input:       input{userID: "", page: 1},
 		description: "list empty, userID is empty",
+	},
+	{
+		name:        "user not found empty",
+		input:       input{userID: "999999999999999999", page: 1},
+		description: "the user no exist",
 	},
 }
 
 func TestAllByPagedUserError(t *testing.T) {
 	mockFactoryTweet := repositoryFactoryTweet.Build("test")
-
-	service := NewList(mockFactoryTweet)
+	mockFactoryUser := repositoryFactoryUser.Build("test")
+	service := NewList(mockFactoryTweet, mockFactoryUser)
 
 	for _, tc := range testCasesListTweetsValidation {
 		t.Run(tc.name, func(t *testing.T) {
@@ -48,8 +49,8 @@ func TestAllByPagedUserError(t *testing.T) {
 
 func TestAllByPagedUserSuccess(t *testing.T) {
 	mockFactoryTweet := repositoryFactoryTweet.Build("test")
-
-	service := NewList(mockFactoryTweet)
+	mockFactoryUser := repositoryFactoryUser.Build("test")
+	service := NewList(mockFactoryTweet, mockFactoryUser)
 
 	var testCase = struct {
 		name        string
