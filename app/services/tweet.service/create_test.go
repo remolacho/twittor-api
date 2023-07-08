@@ -21,6 +21,11 @@ var testCasesCreateTweetValidation = []struct {
 		description: "It Was expected that tweet has message",
 	},
 	{
+		name:        "Message limit allowed",
+		input:       stubCreate.Tweet("messageEmpty"),
+		description: "Message has a higher limit than allowed",
+	},
+	{
 		name:        "userId is empty",
 		input:       stubCreate.Tweet("userIdEmpty"),
 		description: "It Was expected that tweet has userID",

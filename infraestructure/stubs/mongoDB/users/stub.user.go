@@ -28,6 +28,20 @@ func (s *Stub) created() *user.User {
 	return u
 }
 
+func (s *Stub) other() *user.User {
+	u := &user.User{
+		ID:       primitive.NewObjectID(),
+		Email:    "jonathangrh.25@gmail.com",
+		Name:     "Jonathan",
+		LastName: "Rojas",
+		Password: "123456",
+	}
+
+	password, _ := u.EncryptPassword()
+	u.Password = password
+	return u
+}
+
 func (s *Stub) email() *user.User {
 	return &user.User{
 		ID:       s.getID(),

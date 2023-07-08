@@ -26,6 +26,9 @@ func (s *Stub) User(t string) *user.User {
 	case "new":
 		_user = s.newUser()
 		break
+	case "other":
+		_user = s.other()
+		break
 	}
 
 	return _user

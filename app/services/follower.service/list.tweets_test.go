@@ -3,6 +3,7 @@ package follower_service
 import (
 	"testing"
 	repositoryFactoryFollow "twittor-api/infraestructure/repositories/factories/repository.factory.follower"
+	repositoryFactoryUser "twittor-api/infraestructure/repositories/factories/repository.factory.user"
 	factoryStubUsers "twittor-api/infraestructure/stubs/factories/factory.users"
 )
 
@@ -40,9 +41,9 @@ var testCasesList = []struct {
 }
 
 func TestListTweets(t *testing.T) {
-	mockFactoryRelation := repositoryFactoryFollow.Build("test")
-
-	service := NewListTweets(mockFactoryRelation)
+	mockFactoryFollower := repositoryFactoryFollow.Build("test")
+	mockFactoryUser := repositoryFactoryUser.Build("test")
+	service := NewListTweets(mockFactoryFollower, mockFactoryUser)
 
 	for _, tc := range testCasesList {
 		t.Run(tc.name, func(t *testing.T) {

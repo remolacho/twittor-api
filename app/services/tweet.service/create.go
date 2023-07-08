@@ -11,6 +11,8 @@ type TweetCreateService struct {
 	RepositoryUser  user.IUser
 }
 
+const LimitMessage int = 280
+
 func NewTweet(repoTweeter tweet.ITweet, repoUser user.IUser) *TweetCreateService {
 	return &TweetCreateService{
 		repoTweeter,
@@ -21,6 +23,10 @@ func NewTweet(repoTweeter tweet.ITweet, repoUser user.IUser) *TweetCreateService
 func (s *TweetCreateService) Create(t *tweet.Tweet) (*tweet.Tweet, error) {
 	if !t.MessagePresent() {
 		return t, errors.New("the tweet should has message")
+	}
+
+	if !t.LimitValidMessage(LimitMessage) {
+		return t, errors.New("the tweet should has message less a ")
 	}
 
 	if !t.UserIdPresent() {

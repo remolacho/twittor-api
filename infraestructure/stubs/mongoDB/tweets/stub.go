@@ -15,6 +15,9 @@ func (s *Stub) Tweet(t string) *tweet.Tweet {
 	case "messageEmpty":
 		_tweet = s.messageEmpty()
 		break
+	case "messageLimit":
+		_tweet = s.messageLimit()
+		break
 	case "userIdEmpty":
 		_tweet = s.userID()
 		break
