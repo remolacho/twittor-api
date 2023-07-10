@@ -23,6 +23,11 @@ func CurrentSession() *Mongo {
 	return data
 }
 
+func initDB() {
+	client := getConnection()
+	data = &Mongo{Client: client}
+}
+
 func (m *Mongo) Check() int {
 	err := m.Client.Ping(context.TODO(), nil)
 
@@ -36,11 +41,6 @@ func (m *Mongo) Check() int {
 
 func (m *Mongo) DataBase() *mongo.Database {
 	return data.Client.Database(os.Getenv("DATABASE_NAME"))
-}
-
-func initDB() {
-	client := getConnection()
-	data = &Mongo{Client: client}
 }
 
 func getConnection() *mongo.Client {
